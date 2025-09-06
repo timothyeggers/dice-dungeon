@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk3j7vavmo3wk"]
+
+[ext_resource type="Script" uid="uid://ds2o4ic1o38uk" path="res://area_2d.gd" id="1_0e48y"]
+[ext_resource type="PackedScene" uid="uid://dlwtl6u1ylf0d" path="res://dice.tscn" id="2_epypp"]
+[ext_resource type="Texture2D" uid="uid://bw20d4fmymfy" path="res://icon.svg" id="3_epypp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epypp"]
+
+[node name="World" type="Node" groups=["world"]]
+
+[node name="Area2D" type="Area3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 0, 632, 584, 0)
+script = ExtResource("1_0e48y")
+dice = ExtResource("2_epypp")
+
+[node name="Sprite2D2" type="Sprite3D" parent="Area2D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0)
+texture = ExtResource("3_epypp")
+
+[node name="CollisionShape2D" type="CollisionShape3D" parent="Area2D"]
+shape = SubResource("BoxShape3D_epypp")
+
+[node name="Anchor" type="Node3D" parent="." groups=["spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 648, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+projection = 1
+current = true
+size = 6.714
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.986268, 0, -0.165151, -0.106345, 0.76509, 0.635081, 0.126355, 0.643923, -0.754584, 0, 1.16729, 0)

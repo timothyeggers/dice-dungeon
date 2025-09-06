@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1thr0bnw11kj"]
+
+[ext_resource type="Texture2D" uid="uid://bdkh1yl15wfu8" path="res://Assets/Pawn/pawn_white.png" id="1_anhs3"]
+[ext_resource type="Script" uid="uid://bfp7q6cittuxv" path="res://Scripts/Dice/DiceControl.gd" id="2_iydla"]
+
+[node name="Piece" type="TextureButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_anhs3")
+script = ExtResource("2_iydla")

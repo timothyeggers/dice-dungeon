@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Character" load_steps=5 format=3 uid="uid://dgeh5ngdkp5rp"]
+
+[ext_resource type="Script" uid="uid://cs330fswxeaku" path="res://Scripts/Ability/Ability.gd" id="1_cyj8i"]
+[ext_resource type="Script" uid="uid://d3opxwcoh7fnv" path="res://Scripts/Character/Character.gd" id="1_q8bbc"]
+[ext_resource type="Texture2D" uid="uid://bw20d4fmymfy" path="res://icon.svg" id="1_vt2hr"]
+[ext_resource type="Resource" uid="uid://di3we3cq8rusb" path="res://Scripts/Ability/Resources/Taunt.tres" id="2_w6l14"]
+
+[resource]
+script = ExtResource("1_q8bbc")
+portrait = ExtResource("1_vt2hr")
+name = "Tim"
+health = 4
+class_tags = Array[String](["warrior"])
+abilities = Array[ExtResource("1_cyj8i")]([ExtResource("2_w6l14")])
+metadata/_custom_type_script = "uid://d3opxwcoh7fnv"
