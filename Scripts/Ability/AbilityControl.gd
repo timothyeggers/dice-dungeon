@@ -4,6 +4,8 @@ const scene = preload("res://Assets/Ability/AbilityControl.tscn")
 
 @export var ability: Ability
 
+var cost: Control
+
 static func create(ability: Ability) -> AbilityControl:
 	var control: AbilityControl = scene.instantiate()
 	control.ability = ability
@@ -12,21 +14,20 @@ static func create(ability: Ability) -> AbilityControl:
 func _ready():
 	add_to_group("ability")
 	
-	var name = get_node("Panel/Container/Name") as Label
-	var flavor = get_node("Panel/Container/Flavor") as Label
-	var cost = get_node("Panel/Container/Ability/Cost/Icon") as TextureRect
-	var description = get_node("Panel/Container/Ability/Description")
+	var name = get_node("Container/Name") as Label
+	var flavor = get_node("Container/Flavor") as Label
+	cost = get_node("Container/Ability/Cost") as Label
+	var description = get_node("Container/Ability/Description")
 	
 	if (name):
 		name.text = ability.name
+	
+	if (cost):
+		cost.text = str(ability.cost)
 	
 	if (flavor):
 		flavor.text = ability.flavor_text
 	
 	if (description):
 		description.text = ability.description
-	
-	if (cost):
-		var cost_texture = "res://Assets/Dice/dice_number_%s.png"
-		cost.texture = load(cost_texture  % ability.cost)
 	

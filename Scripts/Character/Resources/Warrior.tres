@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Character" load_steps=5 format=3 uid="uid://dgeh5ngdkp5rp"]
 
-[ext_resource type="Script" uid="uid://cs330fswxeaku" path="res://Scripts/Ability/Ability.gd" id="1_cyj8i"]
-[ext_resource type="Script" uid="uid://d3opxwcoh7fnv" path="res://Scripts/Character/Character.gd" id="1_q8bbc"]
+[ext_resource type="Script" uid="uid://d25sam1cme5bq" path="res://Scripts/Ability/Ability.gd" id="1_cyj8i"]
+[ext_resource type="Script" uid="uid://dtt71phixa6d5" path="res://Scripts/Character/Character.gd" id="1_q8bbc"]
 [ext_resource type="Texture2D" uid="uid://bw20d4fmymfy" path="res://icon.svg" id="1_vt2hr"]
 [ext_resource type="Resource" uid="uid://di3we3cq8rusb" path="res://Scripts/Ability/Resources/Taunt.tres" id="2_w6l14"]
 

@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="DiceDungeon"
-run/main_scene="uid://b4hewxl3wfpku"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="uid://cnbwsuwf0k66l"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,12 +22,23 @@ Game="*res://Scripts/Game.gd"
 Signals="*res://Scripts/Signals.gd"
 Utils="*res://Scripts/Utils.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+window/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
+window/transparent_background=false
+
 [global_group]
 
 world=""
 Field/NPCs=""
 ui_hand="UI control that drawn cards will be placed."
 ui_npcs="Opposing NPCs will be placed here."
+ui_abilities=""
+ui_reserve=""
+ui_health=""
+ui_shield=""
+ui_enemy=""
 
 [input]
 
@@ -36,3 +47,7 @@ click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

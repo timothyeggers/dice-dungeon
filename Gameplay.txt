@@ -1,0 +1,22 @@
+The corew gameplay of slay the spire is weighing defensive and offensive actions. Because life is not restored at end of battle.
+
+- Enemy intents are shown, so you can weigh if you should block, or if you can kill an enemy within a certain time
+- You can tank, with the intent of doing enough damage to kill, but also comparing against the next available recovery
+- Slay the spire presents a lot of information with intention
+
+If you have a static ability, but the dice is randomized, how do you give player back intention? it feels too random.
+
+A game like rummy gives back player intention by only allowing certain dice throws to be scored once.  and you can take a zero, with the risk and intention of getting a better throw for that scored slot.
+
+----- Giving back intention -----
+- Reserving dice
+- having nonstatic abilities, aka transforms
+- having oneshot abilities that matter
+- drawing abilities
+- dice in reserve representing shield
+- showing enemy intentions
+- showing map intentions
+- Enemies perform actions in a fixed order, I don't think there's randomness in this regard.
+
+----- Requirements -----
+- Profiles

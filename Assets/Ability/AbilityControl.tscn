@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dmyhd6f8gq3q2"]
 
-[ext_resource type="Script" uid="uid://bd820s63tot1x" path="res://Scripts/Ability/AbilityControl.gd" id="1_xn3hb"]
+[ext_resource type="Script" uid="uid://bgik2xunbllf" path="res://Scripts/Ability/AbilityControl.gd" id="1_xn3hb"]
 [ext_resource type="Resource" uid="uid://di3we3cq8rusb" path="res://Scripts/Ability/Resources/Taunt.tres" id="2_i18e7"]
-[ext_resource type="Texture2D" uid="uid://t7e4dtuskomn" path="res://Assets/Dice/dice_face.png" id="2_qx5lh"]
+[ext_resource type="Script" uid="uid://df1yvy1apldgy" path="res://Scripts/ActivateButton.gd" id="4_k50g2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i18e7"]
 font_size = 12
@@ -10,58 +10,45 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_k50g2"]
 font_size = 12
 
-[node name="AbilityControl" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="AbilityControl" type="PanelContainer"]
+custom_minimum_size = Vector2(128, 96)
+offset_right = 332.0
+offset_bottom = 120.0
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_xn3hb")
 ability = ExtResource("2_i18e7")
 
-[node name="Panel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(128, 96)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Container" type="VBoxContainer" parent="Panel"]
+[node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel/Container"]
+[node name="Name" type="Label" parent="Container"]
 layout_mode = 2
 text = "Ability Name"
 
-[node name="Flavor" type="Label" parent="Panel/Container"]
+[node name="Flavor" type="Label" parent="Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_i18e7")
 autowrap_mode = 3
 
-[node name="Ability" type="HBoxContainer" parent="Panel/Container"]
+[node name="Ability" type="HBoxContainer" parent="Container"]
 layout_mode = 2
 
-[node name="Cost" type="MarginContainer" parent="Panel/Container/Ability"]
+[node name="Cost" type="Label" parent="Container/Ability"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
 
-[node name="Background" type="TextureRect" parent="Panel/Container/Ability/Cost"]
-self_modulate = Color(0.294348, 0.304119, 0.320265, 1)
-layout_mode = 2
-texture = ExtResource("2_qx5lh")
-
-[node name="Icon" type="TextureRect" parent="Panel/Container/Ability/Cost"]
-layout_mode = 2
-texture = ExtResource("2_qx5lh")
-
-[node name="Description" type="Label" parent="Panel/Container/Ability"]
+[node name="Description" type="Label" parent="Container/Ability"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 text = "Ability Description..."
 label_settings = SubResource("LabelSettings_k50g2")
 autowrap_mode = 3
 max_lines_visible = 3
+
+[node name="ActivateButton" type="Button" parent="Container" node_paths=PackedStringArray("control")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Activate"
+script = ExtResource("4_k50g2")
+control = NodePath("../..")
