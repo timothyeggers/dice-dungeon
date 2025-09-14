@@ -5,12 +5,16 @@ var _hand_capacity: int
 
 var health = 10:
 	set(value):
-		health = value
-		health_ui.text = "Health: %s" % value
+		health = max(0, value)
+		health_ui.text = "Health: %s" % health
 var shield = 0:
 	set(value):
-		shield = value
-		shield_ui.text = "Shield: %s" % value
+		shield = max(0, value)
+		shield_ui.text = "Shield: %s" % shield
+var decay = 0:
+	set(value):
+		decay = value
+		decay_ui.text = "Decay Shield: %s" % decay
 
 @onready var hand = get_tree().get_first_node_in_group("ui_hand")
 @onready var npcs = get_tree().get_first_node_in_group("ui_npcs")
@@ -18,6 +22,7 @@ var shield = 0:
 @onready var reserve = get_tree().get_first_node_in_group("ui_reserve")
 @onready var health_ui = get_tree().get_first_node_in_group("ui_health") as Label
 @onready var shield_ui = get_tree().get_first_node_in_group("ui_shield") as Label
+@onready var decay_ui = get_tree().get_first_node_in_group("ui_decay") as Label
 
 var enemies_killed = 0
 
@@ -71,11 +76,11 @@ func start_game():
 	if (npcs):
 		npcs.add_child(EnemyControl.create(goblin))
 	
-	var taunt = Ability.new()
-	taunt.name = "Taunt"
-	taunt.cost = 3
-	taunt.damage = 0
-	taunt.flavor_text = "Arrrrgg!!"
+	var perservere = Ability.new()
+	perservere.name = "Perservere"
+	perservere.cost = 3
+	perservere.damage = 0
+	perservere.flavor_text = "By the grace of my god mother, save my resolve!"
 	
 	var attack = Ability.new()
 	attack.name = "Swing"
@@ -87,7 +92,7 @@ func start_game():
 		abilities.remove_child(child)
 	
 	if (abilities):
-		abilities.add_child(AbilityControl.create(taunt))
+		abilities.add_child(AbilityControl.create(perservere))
 		abilities.add_child(AbilityControl.create(attack))
 	
 	
@@ -96,6 +101,7 @@ func start_game():
 	start_turn()
 
 func start_turn():
+	
 	for i in _hand_capacity:
 		draw_to_hand()
 	select_dice(null)
@@ -111,6 +117,8 @@ func end_turn():
 	var all_dice = get_tree().get_nodes_in_group("ui_dice")
 	
 	var abilities_in_check: Dictionary # abilityControl key to diceControls
+	
+	#take_damage_raw(decay)
 	
 	for dice in all_dice:
 		var parent = dice.get_parent()
@@ -135,6 +143,12 @@ func end_turn():
 				print("Dice value cost exceeded ability cost. Activating %s..." % ability.ability.name)
 				for enemy in get_tree().get_nodes_in_group("ui_enemy"):
 					(enemy as EnemyControl).take_damage(ability.ability.damage)
+	
+	# Apply decay
+	shield -= decay
+	
+	if (decay > 0):
+		decay -= 1
 	
 	for dice in all_dice:
 		var parent = dice.get_parent()
@@ -167,14 +181,20 @@ enum ActionType {
 	ATTACK
 }
 
-func enemy_action(enemy: EnemyControl, action_type: ActionType, value: int):
+func enemy_action(enemy: EnemyControl, action_type: ActionType, params: DamageParameter):
 	if action_type == ActionType.ATTACK:
-		var diff = shield - value
-		shield -= value
-		if (diff <= 0):
-			health += diff
-			shield = 0
-		print("Dealed %s damage to player." % value)
+		take_damage(params)
+
+
+func take_damage(params: DamageParameter):
+	var delta = shield - params.amount
+	decay += params.decay
+	shield -= params.amount
+	if (delta <= 0):
+		health += delta
+	print("Dealed %s damage to player." % params.amount)
+	print("Dealed %s damage to player health." % abs(delta))
+	print("Applied %s decay to player." % params.decay)
 
 ## Randomly creates a DiceControl and associated Dice.
 func create_dice() -> DiceControl:

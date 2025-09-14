@@ -39,6 +39,7 @@ ui_reserve=""
 ui_health=""
 ui_shield=""
 ui_enemy=""
+ui_decay=""
 
 [input]
 

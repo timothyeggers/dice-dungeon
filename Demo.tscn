@@ -107,6 +107,11 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
 text = "Shield: 0"
 
+[node name="Decay" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_handSize", "ui_decay"]]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
+text = "Shield: 0"
+
 [node name="NPCs" type="HBoxContainer" parent="UI/VBoxContainer" groups=["ui_npcs"]]
 layout_mode = 2
 size_flags_horizontal = 4

@@ -55,7 +55,11 @@ func perform():
 	var value = randi_range(1, stats.max_range)
 	var action = randf_range(0,1 )
 	if action <= stats.likelihood_to_attack:
-		Game.enemy_action(self, Game.ActionType.ATTACK, value)
+		var dmg = DamageParameter.new()
+		var decay = randi_range(0, 2)
+		dmg.amount = value
+		dmg.decay = decay
+		Game.enemy_action(self, Game.ActionType.ATTACK, dmg)
 	else:
 		shield += value
 		
