@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="AttackAbilityParameter" load_steps=4 format=3 uid="uid://bk8qwp2lqpyaa"]
+
+[ext_resource type="Script" uid="uid://bl15v34823isv" path="res://Assets/DamageParameter/DamageParameter.gd" id="1_6yku6"]
+[ext_resource type="Script" uid="uid://bx8hych6gdu6a" path="res://Assets/Ability/Parameters/AttackAbilityParameter.gd" id="2_emw4r"]
+
+[sub_resource type="Resource" id="Resource_nl0xc"]
+script = ExtResource("1_6yku6")
+amount = 2
+pierce_armor = false
+decay = 2
+fire_damage = 0
+lightning_damage = 0
+dark_damage = 0
+accuracy = 1.0
+max_targets = 1
+metadata/_custom_type_script = "uid://bl15v34823isv"
+
+[resource]
+script = ExtResource("2_emw4r")
+damage = SubResource("Resource_nl0xc")
+name = ""
+flavor = ""
+cost = 3
+capacity = 2
+tooltip = ""
+metadata/_custom_type_script = "uid://bx8hych6gdu6a"

@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://n34a3xvj8nn1"]
+
+[ext_resource type="StyleBox" uid="uid://b6f8vbjtxs3os" path="res://Assets/ButtonStyleNormal.tres" id="1_larrn"]
+[ext_resource type="StyleBox" uid="uid://c4j56ah1yuxwq" path="res://Assets/ButtonStylePressed.tres" id="2_254so"]
+[ext_resource type="StyleBox" uid="uid://b2k83lhd0dcvm" path="res://Assets/ButtonStyleHover.tres" id="2_ulkou"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1qlm"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.223529)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/styles/focus = ExtResource("1_larrn")
+Button/styles/hover = ExtResource("2_ulkou")
+Button/styles/hover_pressed = null
+Button/styles/normal = ExtResource("1_larrn")
+Button/styles/pressed = ExtResource("2_254so")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_r1qlm")

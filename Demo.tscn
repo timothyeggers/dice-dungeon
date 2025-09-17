@@ -1,14 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnbwsuwf0k66l"]
+[gd_scene load_steps=6 format=3 uid="uid://cnbwsuwf0k66l"]
 
 [ext_resource type="Texture2D" uid="uid://b40dlstsr02p2" path="res://Assets/Background.png" id="1_wxkda"]
-[ext_resource type="Script" uid="uid://cwrfsswfu74o6" path="res://Scripts/MoveToHand.gd" id="3_0miaj"]
+[ext_resource type="Script" uid="uid://cwrfsswfu74o6" path="res://Scripts/ReclaimButton.gd" id="3_0miaj"]
 [ext_resource type="Script" uid="uid://cvn24peewe6bu" path="res://Scripts/ReserveButton.gd" id="3_umdxf"]
-[ext_resource type="Script" uid="uid://dh3rnk18d75nb" path="res://Scripts/EndTurn.gd" id="3_wppxa"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64soo"]
-bg_color = Color(0.0605303, 0.0605304, 0.0605303, 1)
-border_width_top = 1
-border_color = Color(0.262933, 0.262932, 0.262932, 1)
+[ext_resource type="Script" uid="uid://dh3rnk18d75nb" path="res://Scripts/EndTurnButton.gd" id="3_wppxa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umdxf"]
 content_margin_left = 10.0
@@ -22,50 +17,114 @@ position = Vector2(576, 272)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_wxkda")
 
-[node name="UI" type="Control" parent="."]
+[node name="Debug" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 0
+offset_left = -568.0
+offset_top = -640.0
+offset_right = -68.0
+offset_bottom = -440.0
+
+[node name="TextEdit" type="TextEdit" parent="Debug" groups=["text_debug"]]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(1152, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -228.5
+offset_top = -205.0
+offset_right = 230.265
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NPCs" type="HBoxContainer" parent="UI/VBoxContainer" groups=["container_npcs"]]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Player" type="VBoxContainer" parent="UI/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ReserveContainer" type="PanelContainer" parent="UI/VBoxContainer/Player"]
+[node name="AbilityContainer" type="HBoxContainer" parent="UI/VBoxContainer/Player" groups=["container_abilities"]]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ReclaimContainer" type="VBoxContainer" parent="UI/VBoxContainer/Player/AbilityContainer"]
+layout_mode = 2
+
+[node name="ReclaimButton" type="Button" parent="UI/VBoxContainer/Player/AbilityContainer/ReclaimContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Reclaim All
+"
+script = ExtResource("3_0miaj")
+
+[node name="Hand" type="HBoxContainer" parent="UI/VBoxContainer/Player/AbilityContainer/ReclaimContainer" groups=["container_hand"]]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ReserveContainer" type="PanelContainer" parent="UI/VBoxContainer/Player/AbilityContainer"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="ReserveBox" type="HBoxContainer" parent="UI/VBoxContainer/Player/ReserveContainer" groups=["ui_reserve"]]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/Player/AbilityContainer/ReserveContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-alignment = 1
 
-[node name="ReserveButton" type="Button" parent="UI/VBoxContainer/Player/ReserveContainer/ReserveBox"]
+[node name="ReserveButton" type="Button" parent="UI/VBoxContainer/Player/AbilityContainer/ReserveContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Reserve"
+text = "Shield"
 script = ExtResource("3_umdxf")
 
-[node name="HandBox" type="HBoxContainer" parent="UI/VBoxContainer/Player"]
-layout_mode = 2
-
-[node name="Hand" type="GridContainer" parent="UI/VBoxContainer/Player/HandBox" groups=["ui_hand"]]
+[node name="ReserveBox" type="GridContainer" parent="UI/VBoxContainer/Player/AbilityContainer/ReserveContainer/VBoxContainer" groups=["container_reserve"]]
 layout_mode = 2
 size_flags_horizontal = 0
 columns = 2
 
-[node name="EndTurn" type="Button" parent="UI/VBoxContainer/Player/HandBox/Hand"]
+[node name="InfoPanel" type="PanelContainer" parent="UI/VBoxContainer/Player"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/Player/InfoPanel"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_health"]]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
+text = "Health: 0"
+
+[node name="Shield" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_shield"]]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
+text = "Shield: 0"
+
+[node name="Decay" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_decay"]]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
+text = "Decay Shield: 0"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 45
+
+[node name="EndTurnButton" type="Button" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -73,46 +132,5 @@ text = "End Turn
 "
 script = ExtResource("3_wppxa")
 
-[node name="MoveToHand" type="Button" parent="UI/VBoxContainer/Player/HandBox/Hand"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Reclaim
-"
-script = ExtResource("3_0miaj")
-
-[node name="Controls" type="HBoxContainer" parent="UI/VBoxContainer/Player/HandBox" groups=["ui_abilities"]]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="InfoPanel" type="PanelContainer" parent="UI/VBoxContainer/Player"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_64soo")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/Player/InfoPanel"]
-layout_mode = 2
-
-[node name="HandSize" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_handSize"]]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
-text = "0/3"
-
-[node name="Health" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_handSize", "ui_health"]]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
-text = "Health: 0"
-
-[node name="Shield" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_handSize", "ui_shield"]]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
-text = "Shield: 0"
-
-[node name="Decay" type="Label" parent="UI/VBoxContainer/Player/InfoPanel/HBoxContainer" groups=["label_handSize", "ui_decay"]]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_umdxf")
-text = "Shield: 0"
-
-[node name="NPCs" type="HBoxContainer" parent="UI/VBoxContainer" groups=["ui_npcs"]]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -320)

@@ -13,33 +13,39 @@ config_version=5
 config/name="DiceDungeon"
 run/main_scene="uid://cnbwsuwf0k66l"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.333333, 0.372549, 0.47451, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
-Avoidance="*res://Scripts/Avoidance/AvoidanceManager.gd"
 Game="*res://Scripts/Game.gd"
-Signals="*res://Scripts/Signals.gd"
 Utils="*res://Scripts/Utils.gd"
 
 [display]
 
 window/stretch/mode="viewport"
-window/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
 window/transparent_background=false
 
 [global_group]
 
 world=""
 Field/NPCs=""
-ui_hand="UI control that drawn cards will be placed."
-ui_npcs="Opposing NPCs will be placed here."
-ui_abilities=""
-ui_reserve=""
-ui_health=""
-ui_shield=""
-ui_enemy=""
-ui_decay=""
+label_shield=""
+label_health=""
+label_decay=""
+container_abilities=""
+container_hand=""
+container_npcs=""
+container_reserve=""
+control_ability=""
+control_dice=""
+label_name=""
+control_enemy=""
+text_debug=""
+
+[gui]
+
+theme/custom="uid://n34a3xvj8nn1"
 
 [input]
 
@@ -51,4 +57,4 @@ click={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.333333, 0.372549, 0.47451, 1)

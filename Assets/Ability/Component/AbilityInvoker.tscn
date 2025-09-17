@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsgb267vermuq"]
+
+[ext_resource type="Script" uid="uid://cq3k2qvd3owqh" path="res://Assets/Ability/Component/AbilityInvoker.gd" id="1_1bfv1"]
+
+[node name="AbilityInvoker" type="Node"]
+script = ExtResource("1_1bfv1")
+metadata/_custom_type_script = "uid://cq3k2qvd3owqh"

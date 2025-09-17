@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="AttackAbilityParameter" load_steps=4 format=3 uid="uid://ctnqafkva8hk7"]
+
+[ext_resource type="Script" uid="uid://bl15v34823isv" path="res://Assets/DamageParameter/DamageParameter.gd" id="1_uk4in"]
+[ext_resource type="Script" uid="uid://bx8hych6gdu6a" path="res://Assets/Ability/Parameters/AttackAbilityParameter.gd" id="2_4q7ew"]
+
+[sub_resource type="Resource" id="Resource_0m5se"]
+script = ExtResource("1_uk4in")
+amount = 2
+pierce_armor = false
+decay = 0
+fire_damage = 0
+lightning_damage = 0
+dark_damage = 0
+accuracy = 1.0
+max_targets = 3
+metadata/_custom_type_script = "uid://bl15v34823isv"
+
+[resource]
+script = ExtResource("2_4q7ew")
+damage = SubResource("Resource_0m5se")
+name = "Wreckless Swing"
+flavor = "Perhaps a  precise strike would be more effective."
+cost = 3
+capacity = 2
+tooltip = ""
+metadata/_custom_type_script = "uid://bx8hych6gdu6a"
