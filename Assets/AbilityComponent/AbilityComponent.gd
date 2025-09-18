@@ -20,15 +20,14 @@ func get_ability() -> AbilityData:
 	return data
 
 """Execute the current ability(s) tied to this invoker."""
-func invoke(sender: DamageReceiver, target: DamageReceiver, override: AbilityData = null):
+func invoke(sender: DamageReceiverComponent, target: DamageReceiverComponent, override: AbilityData = null):
 	print_debug("%s was invoked!" % data.name)
 	var ability: AbilityData = override
 	if (!override):
 		ability = get_ability()
 	
-	if (ability is AttackAbilityData):
-		Abilities.basic_attack(target, ability.damage)
-		print("Is attack")
-	
-	if (ability is DefenseAbilityData):
-		Abilities.basic_defensive(sender, ability.buff)
+	if (ability):
+		if (ability.damage):
+			Abilities.basic_attack(target, ability.damage)
+		if (ability.buff):
+			Abilities.basic_defensive(sender, ability.buff)

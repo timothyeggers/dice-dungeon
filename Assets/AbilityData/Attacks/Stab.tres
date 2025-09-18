@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="AttackAbilityParameter" load_steps=4 format=3 uid="uid://difpn67cgxoxq"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://difpn67cgxoxq"]
 
 [ext_resource type="Script" uid="uid://bl15v34823isv" path="res://Assets/DamageData/DamageData.gd" id="1_mibes"]
-[ext_resource type="Script" uid="uid://bx8hych6gdu6a" path="res://Assets/AbilityData/AttackAbilityData.gd" id="2_6sw8t"]
+[ext_resource type="Script" uid="uid://cphhxmp0fiym1" path="res://Assets/AbilityData/AbilityData.gd" id="2_6sw8t"]
 
 [sub_resource type="Resource" id="Resource_2d00e"]
 script = ExtResource("1_mibes")
@@ -17,10 +17,8 @@ metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
 script = ExtResource("2_6sw8t")
-damage = SubResource("Resource_2d00e")
 name = "Stab"
 flavor = ""
 cost = 4
-capacity = 2
-tooltip = ""
-metadata/_custom_type_script = "uid://bx8hych6gdu6a"
+capacity = 1
+damage = SubResource("Resource_2d00e")

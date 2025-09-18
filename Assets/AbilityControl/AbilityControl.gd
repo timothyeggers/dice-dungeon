@@ -2,8 +2,9 @@
 class_name AbilityControl extends Control
 
 @export var _component: AbilityComponent
-@export var _receiver: DamageReceiver
+@export var _receiver: DamageReceiverComponent
 @export var _name: Label
+@export var _capacity: Label
 @export var _flavor: Label
 @export var _cost: Label
 @export var _description: Label
@@ -20,7 +21,7 @@ static func create(ability: AbilityData) -> AbilityControl:
 func get_component() -> AbilityComponent:
 	return _component
 
-func get_receiver() -> DamageReceiver:
+func get_receiver() -> DamageReceiverComponent:
 	return _receiver
 
 """A wrapper that returns this AbilityComponent.AbilityData on the """
@@ -35,7 +36,7 @@ func _ready():
 	
 	assert(_component, "AbilityComponent is a required component.")
 	
-	Game.end_turn.connect(_end_turn)
+	Game.player_end_turn.connect(_end_turn)
 	_activate.pressed.connect(activate)
 	
 	_update_ui()
@@ -43,11 +44,15 @@ func _ready():
 func _end_turn():
 	var these_dice = get_associated_dice()
 	
+	print("Total dice: %s" % get_associated_dice().size())
+	
 	var total = 0
 	for dice in these_dice:
 		total += dice.data.value
+		print("Added total: %s" % dice.data.value)
 	
 	if (total >= _component.data.cost):
+		print("Cost made")
 		_component.invoke(Game.get_player(), Game.get_target())
 
 func _update_ui():
@@ -63,10 +68,24 @@ func _update_ui():
 		_cost.text = "Cost ≥ %s" % data.cost
 	
 	if (_flavor):
-		_flavor.text = data.flavor
+		if (data.flavor):
+			_flavor.text = "%s" % data.flavor
+		else:
+			_flavor.hide()
+	
+	if (_capacity):
+		_capacity.text = "Capacity: %s" % data.capacity
 	
 	if (_description):
-		_description.text = data.tooltip
+		if (data):
+			_description.text = ""
+			if (data.damage):
+				_description.text += "%s" % data.damage.get_message()
+			if (data.buff):
+				_description.text += "%s" % data.buff.get_message()
+		else:
+			_description.text = ""
+		
 
 func activate():
 	var selected = Game.get_selected_dice()
@@ -93,4 +112,4 @@ func activate():
 		#cost_filled += dice.data.value
 	#
 	#if (cost_filled >= _component.data[0].cost):
-		#_component.invoke(get_tree().get_first_node_in_group("DamageReceiver"))
+		#_component.invoke(get_tree().get_first_node_in_group("DamageReceiverComponent"))

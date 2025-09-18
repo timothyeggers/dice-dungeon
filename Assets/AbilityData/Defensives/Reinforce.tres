@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="DefenseAbilityParameter" load_steps=4 format=3 uid="uid://be62tm4cdq514"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://be62tm4cdq514"]
 
 [ext_resource type="Script" uid="uid://drov5xw4ncl1n" path="res://Assets/BuffData/BuffData.gd" id="1_hkq0u"]
-[ext_resource type="Script" uid="uid://8jkm81oc4bhw" path="res://Assets/AbilityData/DefenseAbilityData.gd" id="2_7qcmi"]
+[ext_resource type="Script" uid="uid://cphhxmp0fiym1" path="res://Assets/AbilityData/AbilityData.gd" id="2_7qcmi"]
 
 [sub_resource type="Resource" id="Resource_xoq3u"]
 script = ExtResource("1_hkq0u")
@@ -12,10 +12,8 @@ metadata/_custom_type_script = "uid://drov5xw4ncl1n"
 
 [resource]
 script = ExtResource("2_7qcmi")
-buff = SubResource("Resource_xoq3u")
 name = "Reinforce"
 flavor = ""
 cost = 3
 capacity = 1
-tooltip = ""
-metadata/_custom_type_script = "uid://8jkm81oc4bhw"
+buff = SubResource("Resource_xoq3u")

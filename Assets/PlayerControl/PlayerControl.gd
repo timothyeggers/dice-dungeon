@@ -1,8 +1,10 @@
 class_name PlayerControl extends Control
 
+signal death
+
 # Load pre-requisite UI into Game memory.
-@export var _receiver: DamageReceiver
-@export var _ability_container: Container
+@export var _receiver: DamageReceiverComponent
+@export var _status: Label
 @export var _name: Label
 @export var _health: Label
 @export var _shield: Label
@@ -23,7 +25,7 @@ static func create(data: DamageReceiverData, portrait: Texture2D = null) -> Play
 func _ready():
 	add_to_group("PlayerControl")
 	
-	Game.end_turn.connect(_turn_end)
+	Game.player_end_turn.connect(_turn_end)
 	
 	_receiver.damage_received.connect(_update_ui)
 	_receiver.buff_received.connect(_update_ui)
@@ -35,8 +37,21 @@ func _turn_end():
 
 func _update_ui():
 	var status = _receiver.get_status()
+	
 	_health.text = "Health: %s" % [status.health]
 	_shield.text = "Shield: %s" % [status.shield]
+	
+	if _status:
+		var message = ""
+		if (status.regen):
+			message += "Regen: %s\n" % status.regen
+		if (status.decay):
+			message += "Decay: %s\n" % status.decay
+		
+		_status.text = message
+	
+	if status.health <= 0:
+		death.emit()
 
 #var enemies_killed = 0
 #

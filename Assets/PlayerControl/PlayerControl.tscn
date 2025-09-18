@@ -6,9 +6,10 @@
 
 [sub_resource type="Resource" id="Resource_111qr"]
 script = ExtResource("3_o4h4w")
-health = 10
+health = 2
 regen = 0
 shield = 5
+decay = 0
 fire_resistance = 0.0
 lightning_resistance = 0.0
 metadata/_custom_type_script = "uid://ccrqrpd65nn1y"
@@ -17,12 +18,13 @@ metadata/_custom_type_script = "uid://ccrqrpd65nn1y"
 content_margin_left = 10.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("_receiver", "_health", "_shield") groups=["PlayerControl"]]
+[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("_receiver", "_status", "_health", "_shield") groups=["PlayerControl"]]
 offset_right = 304.0
 offset_bottom = 37.0
 mouse_filter = 2
 script = ExtResource("1_lnv34")
 _receiver = NodePath("DamageReceiver")
+_status = NodePath("StatusPanel/Status")
 _health = NodePath("InfoPanel/HBoxContainer/Health")
 _shield = NodePath("InfoPanel/HBoxContainer/Shield")
 
@@ -31,6 +33,21 @@ script = ExtResource("2_8il54")
 display_name = "Player"
 data = SubResource("Resource_111qr")
 metadata/_custom_type_script = "uid://dhja161tiwyib"
+
+[node name="StatusPanel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="StatusPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -127.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="InfoPanel" type="PanelContainer" parent="."]
 layout_mode = 2

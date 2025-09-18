@@ -34,6 +34,16 @@ offset_bottom = 648.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="EndTurn" type="Button" parent="UI" groups=["End Turn Button"]]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+offset_bottom = 33.0
+grow_horizontal = 0
+text = "End Turn"
+
 [node name="NPCs" type="HBoxContainer" parent="UI" groups=["NPC Container"]]
 layout_mode = 1
 anchors_preset = 8
@@ -59,7 +69,8 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Field"]
-custom_minimum_size = Vector2(1152, 160)
+custom_minimum_size = Vector2(1152, 220)
+layout_direction = 2
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -73,10 +84,6 @@ layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 columns = 2
-
-[node name="EndTurn" type="Button" parent="UI/Hand" groups=["End Turn Button"]]
-layout_mode = 2
-text = "End Turn"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

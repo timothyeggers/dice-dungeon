@@ -1,4 +1,4 @@
-class_name DamageReceiver extends Node
+class_name DamageReceiverComponent extends Node
 
 signal damage_received()
 signal buff_received()
@@ -9,7 +9,7 @@ signal buff_received()
 var _data: DamageReceiverData
 
 func _ready():
-	add_to_group("DamageReceiver")
+	add_to_group("DamageReceiverComponent")
 	
 	_data = data.duplicate()
 
@@ -17,7 +17,11 @@ func buff(buff: BuffData):
 	heal(buff.heal)
 	regen(buff.regen)
 	shield(buff.shield)
+	decay(buff.decay)
 	buff_received.emit()
+
+func decay(amount: int):
+	_data.decay = amount
 
 func heal(amount: int):
 	_data.health += amount

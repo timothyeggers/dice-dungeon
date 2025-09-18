@@ -1,0 +1,25 @@
+One issue we're encountering is that the BuffParams and DamageReceiver are separate, so there's duplicate information in parameter names.
+It might not be an issue long term, but when BuffData is received by DamageReceiver, it basically assigns those differences to DamageReceiverComponent
+TL;DR So everytime we add a new buff/debuff to BuffData, we need to add the same parameter to DamageReceiver to track it.
+
+We need to merge _update_ui on DamageReceiver for both buff and attack.  
+We need to move decay back to attack. 
+
+
+Next Additions:
+	A targetting system
+	Multiple dice types (values)
+	Multiple dace face determined by max roll
+
+Long Term:
+	The overworld map and navigation
+	Encounter enemies into battle screen
+
+Super Long Term:
+	3d map generation
+		include some parameters for max distance for chests, enemies, etc.
+	saving/loading
+	dodge/shield differences
+		dodge is removed at end of turn, but not on hit
+	implementing elemental damage (lets keep it to arcane, divine, elemental):
+		we can do elemental type buffs/debuffs, but for resistance just keep to those three

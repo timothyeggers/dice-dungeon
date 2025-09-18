@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="AttackAbilityParameter" load_steps=4 format=3 uid="uid://bk8qwp2lqpyaa"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://bk8qwp2lqpyaa"]
 
 [ext_resource type="Script" uid="uid://bl15v34823isv" path="res://Assets/DamageData/DamageData.gd" id="1_cii3v"]
-[ext_resource type="Script" uid="uid://bx8hych6gdu6a" path="res://Assets/AbilityData/AttackAbilityData.gd" id="2_xkesv"]
+[ext_resource type="Script" uid="uid://cphhxmp0fiym1" path="res://Assets/AbilityData/AbilityData.gd" id="2_xkesv"]
 
 [sub_resource type="Resource" id="Resource_nl0xc"]
 script = ExtResource("1_cii3v")
 amount = 2
 ignore_armor = false
-decay = 2
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
@@ -17,10 +16,8 @@ metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
 script = ExtResource("2_xkesv")
-damage = SubResource("Resource_nl0xc")
-name = ""
+name = "Murky Stab"
 flavor = ""
 cost = 3
 capacity = 2
-tooltip = ""
-metadata/_custom_type_script = "uid://bx8hych6gdu6a"
+damage = SubResource("Resource_nl0xc")
