@@ -10,7 +10,7 @@ class_name AbilityControl extends Control
 @export var _activate: Button
 @export var cost_container: Container
 
-static func create(ability: AbilityParameter) -> AbilityControl:
+static func create(ability: AbilityData) -> AbilityControl:
 	var scene = load("res://Assets/AbilityControl/AbilityControl.tscn")
 	var control = scene.instantiate()
 	control._component.data = ability
@@ -23,7 +23,7 @@ func get_component() -> AbilityComponent:
 func get_receiver() -> DamageReceiver:
 	return _receiver
 
-"""A wrapper that returns this AbilityComponent.AbilityParameter on the """
+"""A wrapper that returns this AbilityComponent.AbilityData on the """
 func get_ability():
 	return _component.get_ability()
 

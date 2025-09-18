@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjmqsb5pjq2s"]
+
+[ext_resource type="Script" uid="uid://c5dwu27ai4l2o" path="res://Assets/PlayerControl/PlayerControl.gd" id="1_lnv34"]
+[ext_resource type="Script" uid="uid://dhja161tiwyib" path="res://Assets/DamageReceiverComponent/DamageReceiverComponent.gd" id="2_8il54"]
+[ext_resource type="Script" uid="uid://ccrqrpd65nn1y" path="res://Assets/DamageReceiverData/DamageReceiverData.gd" id="3_o4h4w"]
+
+[sub_resource type="Resource" id="Resource_111qr"]
+script = ExtResource("3_o4h4w")
+health = 10
+regen = 0
+shield = 5
+fire_resistance = 0.0
+lightning_resistance = 0.0
+metadata/_custom_type_script = "uid://ccrqrpd65nn1y"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt56y"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Player" type="VBoxContainer" node_paths=PackedStringArray("_receiver", "_health", "_shield") groups=["PlayerControl"]]
+offset_right = 304.0
+offset_bottom = 37.0
+mouse_filter = 2
+script = ExtResource("1_lnv34")
+_receiver = NodePath("DamageReceiver")
+_health = NodePath("InfoPanel/HBoxContainer/Health")
+_shield = NodePath("InfoPanel/HBoxContainer/Shield")
+
+[node name="DamageReceiver" type="Node" parent="."]
+script = ExtResource("2_8il54")
+display_name = "Player"
+data = SubResource("Resource_111qr")
+metadata/_custom_type_script = "uid://dhja161tiwyib"
+
+[node name="InfoPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InfoPanel"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="InfoPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rt56y")
+text = "Health: 0"
+
+[node name="Shield" type="Label" parent="InfoPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rt56y")
+text = "Shield: 0"
