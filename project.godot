@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Game="*res://Scripts/Game.gd"
-Utils="*res://Scripts/Utils.gd"
+Game="*res://Assets/Globals/Game.gd"
+Utils="*res://Assets/Globals/Utils.gd"
 
 [display]
 
@@ -28,20 +28,16 @@ window/transparent_background=false
 
 [global_group]
 
-world=""
 Field/NPCs=""
-label_shield=""
-label_health=""
-label_decay=""
-container_abilities=""
-container_hand=""
-container_npcs=""
-container_reserve=""
-control_ability=""
-control_dice=""
-label_name=""
-control_enemy=""
-text_debug=""
+DiceControl=""
+EnemyControl=""
+World=""
+"Field Container"="The container that holds the sub-containers for Player and NPCs"
+"NPC Container"="The UI container that holds EnemyControl's"
+"Hand Container"="Container that holds DiceControl"
+"End Turn Button"=""
+"Ability Container"="Contains player abilities."
+PlayerControl=""
 
 [gui]
 

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="DefenseAbilityParameter" load_steps=4 format=3 uid="uid://cqm1ud2ni828u"]
+
+[ext_resource type="Script" uid="uid://drov5xw4ncl1n" path="res://Assets/BuffParameter/BuffParameter.gd" id="1_oqjes"]
+[ext_resource type="Script" uid="uid://8jkm81oc4bhw" path="res://Assets/AbilityParameter/DefenseAbilityParameter.gd" id="2_u0cij"]
+
+[sub_resource type="Resource" id="Resource_m3rl3"]
+script = ExtResource("1_oqjes")
+shield = 2
+regen = 1
+heal = 0
+metadata/_custom_type_script = "uid://drov5xw4ncl1n"
+
+[resource]
+script = ExtResource("2_u0cij")
+buff = SubResource("Resource_m3rl3")
+name = "Steadfast"
+flavor = "By the grace of my god mother, hold me strong!"
+cost = 3
+capacity = 1
+tooltip = ""
+metadata/_custom_type_script = "uid://8jkm81oc4bhw"

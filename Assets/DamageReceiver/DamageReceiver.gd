@@ -6,12 +6,12 @@ signal buff_received()
 @export var display_name := "Goblin"
 @export var data: DamageReceiverParameter
 
-var _active: DamageReceiverParameter
+var _data: DamageReceiverParameter
 
 func _ready():
 	add_to_group("DamageReceiver")
 	
-	_active = data.duplicate()
+	_data = data.duplicate()
 
 func buff(buff: BuffParameter):
 	heal(buff.heal)
@@ -20,37 +20,39 @@ func buff(buff: BuffParameter):
 	buff_received.emit()
 
 func heal(amount: int):
-	_active.health += amount
-	_active.health = max(0, _active.health)
+	_data.health += amount
+	_data.health = max(0, _data.health)
 	print("%s was healed for %s." % [display_name, amount])
 
 func regen(amount: int):
-	_active.regen += amount
+	_data.regen += amount
 	print("%s had %s regen applied!" % [display_name, amount])
 
 func shield(amount: int):
-	_active.shield += amount
+	_data.shield += amount
 	print("%s has gained %s shield." % [display_name, amount])
 
 func receive(dmg: DamageParameter):
 	var total_damage = 0
 	
+	var current_shield = _data.shield
 	if (!dmg.ignore_armor):
-		print("%s absorbed damage to shield!" % [display_name])
-		_active.shield -= dmg.amount
-		if _active.shield < 0:
-			total_damage += abs(_active.shield)
-			_active.shield = 0
+		_data.shield -= dmg.amount
+		if _data.shield < 0:
+			total_damage += abs(_data.shield)
+			_data.shield = 0
 	else:
 		total_damage += dmg.amount
-	total_damage += (1-_active.fire_resistance) * dmg.fire_damage 
-	total_damage += (1-_active.lightning_resistance) * dmg.lightning_damage 
+	
+	total_damage += (1-_data.fire_resistance) * dmg.fire_damage 
+	total_damage += (1-_data.lightning_resistance) * dmg.lightning_damage 
 	total_damage += dmg.dark_damage
 	
-	_active.health -= total_damage
+	_data.health -= total_damage
 	
+	print("%s absorbed %s damage to shield!" % [display_name, abs(current_shield-_data.shield)])
 	print("%s has taken %s damage!" % [display_name, total_damage])
-	damage_received.emit(_active)
+	damage_received.emit()
 
 func get_status() -> DamageReceiverParameter:
-	return _active.duplicate()
+	return _data.duplicate()
