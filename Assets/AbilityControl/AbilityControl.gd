@@ -1,8 +1,7 @@
-"""This component displays the UI for the AbilityComponent. """
+## This component provides the UI for the AbilityData 
 class_name AbilityControl extends Control
 
-@export var _component: AbilityComponent
-@export var _receiver: DamageReceiverComponent
+@export var data: AbilityData
 @export var _name: Label
 @export var _capacity: Label
 @export var _flavor: Label
@@ -11,53 +10,37 @@ class_name AbilityControl extends Control
 @export var _activate: Button
 @export var cost_container: Container
 
-static func create(ability: AbilityData) -> AbilityControl:
+static func create(ability: AbilityData, attach_to: Node) -> AbilityControl:
+	if !attach_to || !is_instance_valid(attach_to) || attach_to.is_queued_for_deletion():
+		return
+	
 	var scene = load("res://Assets/AbilityControl/AbilityControl.tscn")
 	var control = scene.instantiate()
-	control._component.data = ability
+	control.data = ability
+	
+	attach_to.add_child(control)
+	
 	return control
 
-"""Returns the AbilityComponent that this UI represents."""
-func get_component() -> AbilityComponent:
-	return _component
+##  Returns a REFERENCE to the AbilityData, not the 'value'.
+func get_ability() -> AbilityData:
+	return data
 
-func get_receiver() -> DamageReceiverComponent:
-	return _receiver
-
-"""A wrapper that returns this AbilityComponent.AbilityData on the """
-func get_ability():
-	return _component.get_ability()
-
-func get_associated_dice() -> Array:
-	return Utils.get_children_with_tag(self, "DiceControl")
+func get_associated_dice() -> Array[DiceControl]:
+	var diceControls : Array[DiceControl] = []
+	for d in Utils.get_children_with_tag(self, "DiceControl"):
+		if d is DiceControl:
+			diceControls.append(d)
+	return diceControls
 
 func _ready():
 	add_to_group("AbilityControl")
 	
-	assert(_component, "AbilityComponent is a required component.")
-	
-	Game.player_end_turn.connect(_end_turn)
 	_activate.pressed.connect(activate)
 	
 	_update_ui()
 
-func _end_turn():
-	var these_dice = get_associated_dice()
-	
-	print("Total dice: %s" % get_associated_dice().size())
-	
-	var total = 0
-	for dice in these_dice:
-		total += dice.data.value
-		print("Added total: %s" % dice.data.value)
-	
-	if (total >= _component.data.cost):
-		print("Cost made")
-		_component.invoke(Game.get_player(), Game.get_target())
-
 func _update_ui():
-	
-	var data = _component.get_ability()
 	
 	if (data == null): return
 	
@@ -89,7 +72,7 @@ func _update_ui():
 
 func activate():
 	var selected = Game.get_selected_dice()
-	var ability = _component.get_ability()
+	var ability = data
 	
 	if (!selected): return
 	if (!ability): return
@@ -104,12 +87,3 @@ func activate():
 	if (selected is DiceControl):
 		selected.get_parent().remove_child(selected)
 		cost_container.add_child(selected)
-
-#func _on_end_turn():
-	#var dice_in_ability = cost_container.get_children()
-	#var cost_filled = 0
-	#for dice in dice_in_ability:
-		#cost_filled += dice.data.value
-	#
-	#if (cost_filled >= _component.data[0].cost):
-		#_component.invoke(get_tree().get_first_node_in_group("DamageReceiverComponent"))

@@ -7,11 +7,11 @@
 script = ExtResource("1_cii3v")
 amount = 2
 ignore_armor = false
+decay = 2
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
 accuracy = 1.0
-max_targets = 1
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
@@ -20,4 +20,5 @@ name = "Murky Stab"
 flavor = ""
 cost = 3
 capacity = 2
+max_targets = 1
 damage = SubResource("Resource_nl0xc")

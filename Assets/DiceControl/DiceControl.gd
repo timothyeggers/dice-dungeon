@@ -2,10 +2,16 @@ class_name DiceControl extends TextureButton
 
 @export var data: DiceData
 
-static func create(dice: DiceData) -> DiceControl:
+static func create(dice: DiceData, attach_to: Node) -> DiceControl:
+	if !attach_to || !is_instance_valid(attach_to) || attach_to.is_queued_for_deletion():
+		return
+	
 	var scene = load("res://Assets/DiceControl/DiceControl.tscn")
 	var control: DiceControl = scene.instantiate()
 	control.data = dice
+	
+	attach_to.add_child(control)
+	
 	return control
 
 func _ready():

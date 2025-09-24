@@ -5,8 +5,8 @@
 
 [sub_resource type="Resource" id="Resource_m3rl3"]
 script = ExtResource("1_2aqnh")
-shield = 2
-regen = 1
+shield = 3
+regen = 0
 heal = 0
 metadata/_custom_type_script = "uid://drov5xw4ncl1n"
 
@@ -16,4 +16,5 @@ name = "Steadfast"
 flavor = "By the grace of my god mother, hold me strong!"
 cost = 3
 capacity = 1
+max_targets = 1
 buff = SubResource("Resource_m3rl3")

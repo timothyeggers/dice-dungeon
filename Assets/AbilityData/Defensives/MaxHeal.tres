@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=6 format=3 uid="uid://bw1seb4lbvosn"]
+
+[ext_resource type="Script" uid="uid://drov5xw4ncl1n" path="res://Assets/BuffData/BuffData.gd" id="1_yabpn"]
+[ext_resource type="Script" uid="uid://bl15v34823isv" path="res://Assets/DamageData/DamageData.gd" id="2_30fcr"]
+[ext_resource type="Script" uid="uid://cphhxmp0fiym1" path="res://Assets/AbilityData/AbilityData.gd" id="3_5dx5h"]
+
+[sub_resource type="Resource" id="Resource_gqj2f"]
+script = ExtResource("1_yabpn")
+shield = 99
+regen = 99
+heal = 99
+metadata/_custom_type_script = "uid://drov5xw4ncl1n"
+
+[sub_resource type="Resource" id="Resource_14omp"]
+script = ExtResource("2_30fcr")
+amount = 1
+ignore_armor = true
+decay = 0
+fire_damage = 0
+lightning_damage = 0
+dark_damage = 0
+accuracy = 1.0
+metadata/_custom_type_script = "uid://bl15v34823isv"
+
+[resource]
+script = ExtResource("3_5dx5h")
+name = "Gods Favor"
+flavor = "What the fuck!"
+cost = 1
+capacity = 1
+max_targets = 1
+damage = SubResource("Resource_14omp")
+buff = SubResource("Resource_gqj2f")
+metadata/_custom_type_script = "uid://cphhxmp0fiym1"

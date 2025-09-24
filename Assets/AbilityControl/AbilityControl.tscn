@@ -1,17 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmyhd6f8gq3q2"]
+[gd_scene load_steps=3 format=3 uid="uid://dmyhd6f8gq3q2"]
 
 [ext_resource type="Script" uid="uid://bgik2xunbllf" path="res://Assets/AbilityControl/AbilityControl.gd" id="1_qx5lh"]
-[ext_resource type="PackedScene" uid="uid://dsgb267vermuq" path="res://Assets/AbilityComponent/AbilityComponent.tscn" id="2_i18e7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i18e7"]
 font_size = 12
 
-[node name="AbilityControl" type="PanelContainer" node_paths=PackedStringArray("_component", "_name", "_capacity", "_flavor", "_cost", "_description", "_activate", "cost_container")]
+[node name="AbilityControl" type="PanelContainer" node_paths=PackedStringArray("_name", "_capacity", "_flavor", "_cost", "_description", "_activate", "cost_container")]
 custom_minimum_size = Vector2(128, 0)
 offset_right = 336.0
 offset_bottom = 131.0
 script = ExtResource("1_qx5lh")
-_component = NodePath("AbilityComponent")
 _name = NodePath("Container/Title/Name")
 _capacity = NodePath("Container/Title/Capacity")
 _flavor = NodePath("Container/Flavor")
@@ -19,8 +17,6 @@ _cost = NodePath("Container/Ability/Cost")
 _description = NodePath("Container/Ability/Description")
 _activate = NodePath("Container/ActivateButton")
 cost_container = NodePath("Container/CostContainer")
-
-[node name="AbilityComponent" parent="." instance=ExtResource("2_i18e7")]
 
 [node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 2

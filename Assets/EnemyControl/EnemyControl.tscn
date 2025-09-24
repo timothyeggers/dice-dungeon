@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://di6m36ruk6xk5"]
 
 [ext_resource type="Script" uid="uid://i5xsobbq8m3u" path="res://Assets/EnemyControl/EnemyControl.gd" id="1_6k1hl"]
+[ext_resource type="Texture2D" uid="uid://bdkh1yl15wfu8" path="res://Assets/Icons/pawn_white.png" id="3_er56v"]
 [ext_resource type="Script" uid="uid://dhja161tiwyib" path="res://Assets/DamageReceiverComponent/DamageReceiverComponent.gd" id="3_r378j"]
-[ext_resource type="Texture2D" uid="uid://ciyrugqwnyl5g" path="res://Assets/EnemyControl/Resources/Goblin.png" id="4_vd1cd"]
 
-[node name="EnemyControl" type="PanelContainer" node_paths=PackedStringArray("_receiver", "_name", "_health", "_shield", "_portrait", "_intention") groups=["EnemyControl", "world"]]
+[node name="EnemyControl" type="PanelContainer" node_paths=PackedStringArray("_receiver", "_name", "_health", "_shield", "_portrait", "_intention_attack", "_intention_defend", "_intention_unknown") groups=["EnemyControl", "world"]]
 offset_right = 167.0
 offset_bottom = 194.0
 scale = Vector2(0.5, 0.5)
@@ -14,7 +14,9 @@ _name = NodePath("Container/Name")
 _health = NodePath("Container/Health")
 _shield = NodePath("Container/Shield")
 _portrait = NodePath("Container/Portrait")
-_intention = NodePath("Container/Intention")
+_intention_attack = NodePath("Container/Intentions/AttackIntention")
+_intention_defend = NodePath("Container/Intentions/DefendIntention")
+_intention_unknown = NodePath("Container/Intentions/UnknownIntention")
 
 [node name="DamageReceiver" type="Node" parent="."]
 script = ExtResource("3_r378j")
@@ -24,15 +26,20 @@ metadata/_custom_type_script = "uid://dhja161tiwyib"
 layout_mode = 2
 alignment = 1
 
-[node name="Intention" type="TextureRect" parent="Container"]
+[node name="Intentions" type="HBoxContainer" parent="Container"]
+layout_mode = 2
+alignment = 1
+
+[node name="AttackIntention" type="TextureRect" parent="Container/Intentions"]
 layout_mode = 2
 stretch_mode = 5
 
-[node name="Name" type="Label" parent="Container"]
-visible = false
+[node name="DefendIntention" type="TextureRect" parent="Container/Intentions"]
 layout_mode = 2
-text = "Name"
-horizontal_alignment = 1
+stretch_mode = 5
+
+[node name="UnknownIntention" type="TextureRect" parent="Container/Intentions"]
+layout_mode = 2
 
 [node name="Health" type="Label" parent="Container"]
 layout_mode = 2
@@ -46,4 +53,8 @@ horizontal_alignment = 1
 
 [node name="Portrait" type="TextureRect" parent="Container"]
 layout_mode = 2
-texture = ExtResource("4_vd1cd")
+texture = ExtResource("3_er56v")
+
+[node name="Name" type="Button" parent="Container"]
+layout_mode = 2
+text = "Name"

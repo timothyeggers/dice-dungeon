@@ -10,7 +10,9 @@ A game like rummy gives back player intention by only allowing certain dice thro
 
 ----- Giving back intention -----
 - Reserving dice
-- having nonstatic abilities, aka transforms
+- having nonstatic abilities, aka transforms aka overflows
+- dice auto-select to mouse, click on ability to select target.
+- second/third/etc dice putting in will show overflowed ability if cost met
 - having oneshot abilities that matter
 - drawing abilities
 - dice in reserve representing shield

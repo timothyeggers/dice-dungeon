@@ -23,12 +23,12 @@ offset_right = 304.0
 offset_bottom = 37.0
 mouse_filter = 2
 script = ExtResource("1_lnv34")
-_receiver = NodePath("DamageReceiver")
+_receiver = NodePath("DamageReceiverComponent")
 _status = NodePath("StatusPanel/Status")
 _health = NodePath("InfoPanel/HBoxContainer/Health")
 _shield = NodePath("InfoPanel/HBoxContainer/Shield")
 
-[node name="DamageReceiver" type="Node" parent="."]
+[node name="DamageReceiverComponent" type="Node" parent="."]
 script = ExtResource("2_8il54")
 display_name = "Player"
 data = SubResource("Resource_111qr")

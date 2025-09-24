@@ -1,0 +1,6 @@
+Nodes that contain abilities to be instantiated and added to scene have static functions create(attach_to).
+It's important to require attach_to node. Scenes instantiated but not added to tree are not memory managed ,causing memory leaks.
+
+Resources that can be instantiated have functions init()
+
+Managers of components (i.e. Nodes) perform routine updates on compnoents. Call Manager.tick()

@@ -20,9 +20,15 @@ config/icon="res://icon.svg"
 
 Game="*res://Assets/Globals/Game.gd"
 Utils="*res://Assets/Globals/Utils.gd"
+PseudoRandom="*res://Assets/Globals/PseudoRandom.gd"
+Ability="*res://Assets/Globals/Ability.gd"
+EnemyManager="*res://Assets/Globals/EnemyManager.gd"
+DamageReceiverManager="*res://Assets/Globals/DamageReceiverManager.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/transparent_background=false
 
@@ -38,6 +44,9 @@ World=""
 "End Turn Button"=""
 "Ability Container"="Contains player abilities."
 PlayerControl=""
+"Turn Label"=""
+ReserveButton=""
+ReserveContainer=""
 
 [gui]
 

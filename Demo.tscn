@@ -1,14 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnbwsuwf0k66l"]
 
-[ext_resource type="Texture2D" uid="uid://b40dlstsr02p2" path="res://Assets/Background.png" id="1_wxkda"]
+[ext_resource type="Texture2D" uid="uid://d0kxqhwts2vk1" path="res://Assets/Background_2.png" id="1_l4713"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
 [node name="Background" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(576, 272)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_wxkda")
+self_modulate = Color(0.741385, 0.741385, 0.741385, 1)
+position = Vector2(640, 360)
+texture = ExtResource("1_l4713")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
@@ -29,10 +28,19 @@ grow_vertical = 2
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1280.0
+offset_bottom = 720.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="TurnLabel" type="Label" parent="UI" groups=["Turn Label"]]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EndTurn" type="Button" parent="UI" groups=["End Turn Button"]]
 layout_mode = 1
@@ -51,8 +59,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -68.0
-offset_bottom = -68.0
+offset_top = -180.0
+offset_bottom = -180.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -65,11 +73,13 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -304.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Field"]
-custom_minimum_size = Vector2(1152, 220)
+custom_minimum_size = Vector2(1152, 300)
 layout_direction = 2
 layout_mode = 2
 horizontal_scroll_mode = 0
@@ -83,7 +93,21 @@ size_flags_vertical = 3
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
-columns = 2
+columns = 3
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
+[node name="Reserve" type="VBoxContainer" parent="UI"]
+layout_mode = 0
+offset_top = 144.0
+offset_right = 102.0
+offset_bottom = 191.0
+
+[node name="ReserveButton" type="Button" parent="UI/Reserve" groups=["ReserveButton"]]
+layout_mode = 2
+text = "Reserve"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Reserve"]
+layout_mode = 2
+
+[node name="ReserveContainer" type="GridContainer" parent="UI/Reserve/PanelContainer" groups=["ReserveContainer"]]
+layout_mode = 2
+columns = 2

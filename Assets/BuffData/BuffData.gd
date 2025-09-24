@@ -1,9 +1,16 @@
+## BuffData always targets self.
 class_name BuffData extends Resource
 
 @export var shield := 2
 @export var regen := 1
 @export var heal := 0
-@export var decay := 0
+
+static func init(shield: int, regen: int, heal: int) -> BuffData:
+	var buff = BuffData.new()
+	buff.shield = shield
+	buff.regen = regen
+	buff.heal = heal
+	return buff
 
 func get_message() -> String:
 	var message = ""
@@ -14,7 +21,5 @@ func get_message() -> String:
 		message += "Grants %s regen." % regen
 	if heal != 0:
 		message += "Grants %s health." % heal
-	if decay > 0:
-		message += "Deals %s decay damage. " % decay
 	
 	return message

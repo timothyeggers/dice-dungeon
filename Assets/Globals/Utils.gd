@@ -29,6 +29,7 @@ func get_children_with_tag(parent_node: Node, tag_name: String) -> Array:
 
 func get_all_children(parent: Node) -> Array:
 	var nodes : Array = []
+	if !parent: return []
 	for child in parent.get_children():
 		if child.get_child_count() > 0:
 			nodes.append(child)

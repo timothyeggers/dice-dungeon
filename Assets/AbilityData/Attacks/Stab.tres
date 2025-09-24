@@ -11,14 +11,15 @@ decay = 0
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
-accuracy = 1.0
-max_targets = 1
+accuracy = 0.5
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
 script = ExtResource("2_6sw8t")
 name = "Stab"
 flavor = ""
+type = 0
 cost = 4
-capacity = 1
+capacity = 2
+max_targets = 1
 damage = SubResource("Resource_2d00e")
