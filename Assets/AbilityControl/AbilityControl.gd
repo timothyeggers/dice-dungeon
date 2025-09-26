@@ -66,11 +66,15 @@ func _update_ui():
 				_description.text += "%s" % data.damage.get_message()
 			if (data.buff):
 				_description.text += "%s" % data.buff.get_message()
+			if (data.overflow):
+				_description.text += "Overflow: %s" % data.overflow.name
 		else:
 			_description.text = ""
-		
 
 func activate():
+	if (Game.get_turn() != Game.Turn.PLAYER):
+		return
+	
 	var selected = Game.get_selected_dice()
 	var ability = data
 	

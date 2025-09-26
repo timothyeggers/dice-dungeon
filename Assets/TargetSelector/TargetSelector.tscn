@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://h8ld5p6bo5o4"]
+
+[ext_resource type="Script" uid="uid://d4ndk1rbqo5av" path="res://Assets/TargetSelector/TargetSelector.gd" id="1_wot3m"]
+
+[node name="TargetSelector" type="Line2D" groups=["TargetSelector"]]
+z_index = 10
+points = PackedVector2Array(0, 0, 100, 0)
+width = 4.0
+default_color = Color(1, 0, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_wot3m")

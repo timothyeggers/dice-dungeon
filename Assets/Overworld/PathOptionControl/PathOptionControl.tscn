@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=3 uid="uid://ectmrpktly5p"]
+
+[ext_resource type="Script" uid="uid://4wdwpcj3drpd" path="res://Assets/Overworld/PathOptionControl/PathOptionControl.gd" id="1_6xbqt"]
+[ext_resource type="Texture2D" uid="uid://bog404gxll10e" path="res://Assets/path_selection_template.png" id="1_dpr5w"]
+[ext_resource type="Texture2D" uid="uid://btc3w6nntxw56" path="res://Assets/Icons/shield_thumbnail.png" id="2_6xbqt"]
+
+[node name="PathOption" type="CenterContainer" node_paths=PackedStringArray("_title", "_activate", "_threat_level", "_mods", "_rewards_container")]
+offset_right = 418.0
+offset_bottom = 418.0
+script = ExtResource("1_6xbqt")
+_title = NodePath("Descriptors/Title")
+_activate = NodePath("Activate")
+_threat_level = NodePath("Descriptors/Threat Level")
+_mods = NodePath("Descriptors/ModifiersContainer/ModifiersList")
+_rewards_container = NodePath("Descriptors/RewardsContainer")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_dpr5w")
+
+[node name="Descriptors" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(418, 418)
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Descriptors"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "MY PATH TITLE"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Threat Level" type="Label" parent="Descriptors"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.588235, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Threat Level (easy, normal, challenge)"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Modifiers" type="Label" parent="Descriptors"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.890092, 0.420184, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Room Modifiers"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ModifiersContainer" type="ScrollContainer" parent="Descriptors"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 4
+
+[node name="ModifiersList" type="RichTextLabel" parent="Descriptors/ModifiersContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "se
+tes
+tes
+tes
+set
+set
+set
+"
+fit_content = true
+
+[node name="Rewards" type="Label" parent="Descriptors"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.615686, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Rewards"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="RewardsContainer" type="HBoxContainer" parent="Descriptors"]
+layout_mode = 2
+alignment = 1
+
+[node name="RewardItem1" type="TextureRect" parent="Descriptors/RewardsContainer"]
+layout_mode = 2
+texture = ExtResource("2_6xbqt")
+stretch_mode = 2
+
+[node name="RewardItem2" type="TextureRect" parent="Descriptors/RewardsContainer"]
+layout_mode = 2
+texture = ExtResource("2_6xbqt")
+stretch_mode = 2
+
+[node name="Activate" type="Button" parent="."]
+custom_minimum_size = Vector2(418, 418)
+layout_mode = 2
+flat = true

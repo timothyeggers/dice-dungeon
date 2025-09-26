@@ -61,7 +61,7 @@ func _exit_tree() -> void:
 	EnemyManager.remove(get_instance_id())
 
 func _on_enemy_select():
-	Game.select_target(_receiver)
+	Signals.receiver_selected.emit(_receiver)
 
 func _on_death():
 	_is_dead = true
@@ -91,6 +91,8 @@ func _update_ui():
 	var status = _receiver.get_status()
 	_health.text = "Health: %s" % [status.health]
 	_shield.text = "Shield: %s" % [status.shield]
+	if status.decay > 0:
+		_shield.text += " (-%s)" % status.decay
 	_name.text = _receiver.display_name
 	
 	if status.health <= 0:

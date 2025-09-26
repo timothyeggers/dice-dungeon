@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://bl15v34823isv"
 script = ExtResource("3_5dx5h")
 name = "Gods Favor"
 flavor = "What the fuck!"
+type = 0
 cost = 1
 capacity = 1
 max_targets = 1

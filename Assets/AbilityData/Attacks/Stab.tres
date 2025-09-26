@@ -11,7 +11,7 @@ decay = 0
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
-accuracy = 0.5
+accuracy = 0.65
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]

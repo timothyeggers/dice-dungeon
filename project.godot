@@ -24,6 +24,7 @@ PseudoRandom="*res://Assets/Globals/PseudoRandom.gd"
 Ability="*res://Assets/Globals/Ability.gd"
 EnemyManager="*res://Assets/Globals/EnemyManager.gd"
 DamageReceiverManager="*res://Assets/Globals/DamageReceiverManager.gd"
+Signals="*res://Assets/Globals/Signals.gd"
 
 [display]
 
@@ -47,6 +48,7 @@ PlayerControl=""
 "Turn Label"=""
 ReserveButton=""
 ReserveContainer=""
+TargetSelector=""
 
 [gui]
 

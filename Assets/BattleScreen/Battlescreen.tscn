@@ -1,13 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnbwsuwf0k66l"]
 
-[ext_resource type="Texture2D" uid="uid://d0kxqhwts2vk1" path="res://Assets/Background_2.png" id="1_l4713"]
+[ext_resource type="Texture2D" uid="uid://d0kxqhwts2vk1" path="res://Assets/Background_2.png" id="1_vd8l0"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
 [node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(0.741385, 0.741385, 0.741385, 1)
+z_index = -10
 position = Vector2(640, 360)
-texture = ExtResource("1_l4713")
+texture = ExtResource("1_vd8l0")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
@@ -34,6 +35,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="TurnLabel" type="Label" parent="UI" groups=["Turn Label"]]
+z_index = 5
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

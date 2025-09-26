@@ -7,7 +7,7 @@
 script = ExtResource("1_uk4in")
 amount = 2
 ignore_armor = false
-decay = 2
+decay = 3
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://bl15v34823isv"
 script = ExtResource("2_4q7ew")
 name = "Wreckless Swing"
 flavor = "Perhaps a  precise strike would be more effective."
+type = 0
 cost = 3
 capacity = 2
 max_targets = 3

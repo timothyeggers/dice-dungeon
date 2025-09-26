@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://drov5xw4ncl1n"
 script = ExtResource("2_cw6ja")
 name = "Steadfast"
 flavor = "By the grace of my god mother, hold me strong!"
+type = 0
 cost = 3
 capacity = 1
 max_targets = 1
