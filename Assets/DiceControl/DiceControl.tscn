@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://csg4tl8gcvaea"]
 
-[ext_resource type="Texture2D" uid="uid://t7e4dtuskomn" path="res://Assets/DiceControl/Resources/dice_face.png" id="1_a6o7y"]
-[ext_resource type="Texture2D" uid="uid://0glorf2jhhhh" path="res://Assets/DiceControl/Resources/dice_face_focus.png" id="2_3vpb7"]
+[ext_resource type="Texture2D" uid="uid://t7e4dtuskomn" path="res://Assets/DiceControl/Resources/dice_background.png" id="1_a6o7y"]
+[ext_resource type="Texture2D" uid="uid://0glorf2jhhhh" path="res://Assets/DiceControl/Resources/dice_background_focus.png" id="2_3vpb7"]
 [ext_resource type="Script" uid="uid://cg0jwcpngmoer" path="res://Assets/DiceControl/DiceControl.gd" id="3_gcujj"]
 
 [node name="DiceControl" type="TextureButton" groups=["DiceControl"]]

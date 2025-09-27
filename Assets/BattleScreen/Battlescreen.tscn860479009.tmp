@@ -1,19 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnbwsuwf0k66l"]
+[gd_scene load_steps=3 format=3 uid="uid://cnbwsuwf0k66l"]
 
 [ext_resource type="Script" uid="uid://dhk7yc7udqkkd" path="res://Assets/BattleScreen/BattleManager/BattleManager.gd" id="1_kajwm"]
 [ext_resource type="Texture2D" uid="uid://d0kxqhwts2vk1" path="res://Assets/Background_2.png" id="1_vd8l0"]
-[ext_resource type="StyleBox" uid="uid://c22px1sk43w6b" path="res://Assets/PanelStyle.tres" id="3_usvmk"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("_end_turn_button", "_reserve_button", "_reserve_container", "_field_container", "_ability_container", "_hand_container", "_enemy_container") groups=["BattleManager"]]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("_end_turn_button", "_reserve_button", "_reserve_container", "_field_container", "_ability_container", "_hand_container", "_enemy_container")]
 script = ExtResource("1_kajwm")
 _end_turn_button = NodePath("../UI/EndTurn")
 _reserve_button = NodePath("../UI/Reserve/ReserveButton")
 _reserve_container = NodePath("../UI/Reserve/PanelContainer/ReserveContainer")
 _field_container = NodePath("../UI/FieldContainer")
 _ability_container = NodePath("../UI/FieldContainer/ScrollContainer/AbilityContainer")
-_hand_container = NodePath("../UI/Reserve/PanelContainer/ReserveContainer")
+_hand_container = NodePath("../UI/Hand/PanelContainer/HandContainer")
 _enemy_container = NodePath("../UI/EnemyContainer")
 metadata/_custom_type_script = "uid://dhk7yc7udqkkd"
 
@@ -58,44 +57,7 @@ grow_horizontal = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyContainer" type="HBoxContainer" parent="UI"]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 64.0
-offset_right = 1152.0
-offset_bottom = 364.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="FieldContainer" type="VBoxContainer" parent="UI"]
-custom_minimum_size = Vector2(1152, 0)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -210.0
-offset_right = -32.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/FieldContainer"]
-custom_minimum_size = Vector2(1152, 200)
-layout_direction = 2
-layout_mode = 2
-theme_override_styles/panel = ExtResource("3_usvmk")
-horizontal_scroll_mode = 0
-
-[node name="AbilityContainer" type="HFlowContainer" parent="UI/FieldContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="EndTurn" type="Button" parent="UI"]
-z_index = 99
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -105,6 +67,59 @@ offset_bottom = 33.0
 grow_horizontal = 0
 text = "End Turn"
 
+[node name="EnemyContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -180.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FieldContainer" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(1152, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -304.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/FieldContainer"]
+custom_minimum_size = Vector2(1152, 300)
+layout_direction = 2
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="AbilityContainer" type="HFlowContainer" parent="UI/FieldContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hand" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 37.0
+
+[node name="HandLabel" type="Label" parent="UI/Hand"]
+layout_mode = 2
+text = "In Hand"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Hand"]
+layout_mode = 2
+
+[node name="HandContainer" type="GridContainer" parent="UI/Hand/PanelContainer"]
+layout_mode = 2
+columns = 3
+
 [node name="Reserve" type="VBoxContainer" parent="UI"]
 layout_mode = 0
 offset_top = 144.0
@@ -113,7 +128,7 @@ offset_bottom = 191.0
 
 [node name="ReserveButton" type="Button" parent="UI/Reserve"]
 layout_mode = 2
-text = "Reserve (Grants Shield)"
+text = "Reserve"
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/Reserve"]
 layout_mode = 2

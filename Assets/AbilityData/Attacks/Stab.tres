@@ -5,13 +5,13 @@
 
 [sub_resource type="Resource" id="Resource_2d00e"]
 script = ExtResource("1_mibes")
-amount = 2
+amount = 3
 ignore_armor = true
 decay = 0
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
-accuracy = 0.65
+accuracy = 0.6
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
@@ -20,6 +20,6 @@ name = "Stab"
 flavor = ""
 type = 0
 cost = 4
-capacity = 2
+capacity = 1
 max_targets = 1
 damage = SubResource("Resource_2d00e")

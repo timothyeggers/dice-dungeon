@@ -14,6 +14,7 @@ const wrecklessSwing = preload("res://Assets/AbilityData/Attacks/WrecklessSwing.
 
 #region Defense Abilities
 const reinforce = preload("res://Assets/AbilityData/Defensives/Reinforce.tres")
+const raiseShield = preload("res://Assets/AbilityData/Defensives/RaiseShield.tres")
 const steadfast = preload("res://Assets/AbilityData/Defensives/Steadfast.tres")
 const wtf = preload("res://Assets/AbilityData/Defensives/MaxHeal.tres")
 #endregion
@@ -52,13 +53,14 @@ func get_ability(for_id: int, index: int):
 	if _abilities.has(for_id):
 		if index < _abilities[for_id].size():
 			return _abilities[for_id][index]
-	return _abilities[for_id][0]
+	return null
 
 ## Returns the index of the last invoked ability, or -1 if nothing has been invoked...
 func get_invoked_ability_index(for_id: int):
-	var index = _ability_last_use[for_id]
-	if index == null || index >= _abilities[for_id].size():
-		return -1
+	var index = -1
+	if _ability_last_use.has(for_id):
+		if _ability_last_use[for_id] != null:
+			return _ability_last_use[for_id]
 	return index
 
 func invoke(owner_instance_id: int, dice: Array[DiceData], sender: DamageReceiverComponent, targets: Array[DamageReceiverComponent], index = 0, is_overflow := false):
@@ -102,7 +104,3 @@ func invoke(owner_instance_id: int, dice: Array[DiceData], sender: DamageReceive
 	
 	if (extra_dice.size() > 0 && ability.overflow != null):
 		invoke(owner_instance_id, extra_dice, sender, targets, index, true)
-
-
-func get_goblin_abilities() -> Array[AbilityData]:
-	return [steadfast, murkyStab, murkyStab, steadfast, stab ]

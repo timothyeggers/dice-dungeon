@@ -3,7 +3,7 @@ class_name DamageReceiverComponent extends Node
 signal damage_received()
 signal buff_received()
 
-@export var display_name := "Goblin"
+@export var display_name := "Empty"
 @export var data: DamageReceiverData
 
 var _data: DamageReceiverData
@@ -68,7 +68,7 @@ func receive_buff(buff: BuffData):
 	_data.health = max(0, _data.health)
 	_data.regen += buff.regen
 	_data.shield += buff.shield
-	_data.shield = max(0, buff.shield)
+	_data.shield = clamp(_data.shield, 0, _data.shield)
 	
 	print_debug("INFO %s was healed for %s." % [display_name, buff.heal])
 	print_debug("INFO %s had %s regen applied!" % [display_name, buff.regen])
@@ -77,4 +77,4 @@ func receive_buff(buff: BuffData):
 	buff_received.emit()
 
 func get_status() -> DamageReceiverData:
-	return _data.duplicate()
+	return _data

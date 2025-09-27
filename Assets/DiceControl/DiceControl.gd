@@ -23,25 +23,43 @@ func _ready():
 	
 	# Setup the UI
 	rotation_degrees = 90 * randi_range(0, 4)
-	var resource = "res://Assets/DiceControl/Resources/dice_number_%s.png"
-	var numberControl = TextureRect.new()
-	numberControl.texture = load(resource  % data.value)
-	add_child(numberControl)
+	texture_normal = _create_dice_texture("res://Assets/DiceControl/Resources/dice_background.png")
+	texture_focused = _create_dice_texture("res://Assets/DiceControl/Resources/dice_background_focus.png")
 	
 	# Signals
-	mouse_entered.connect(_on_hover)
-	mouse_exited.connect(_on_unhover)
 	pressed.connect(_on_pressed)
 
 ## Returns the DiceData value, not reference.
 func get_dice() -> DiceData:
 	return data.duplicate()
 
+## Builds dice texture using a dice face and dice background
+func _create_dice_texture(dice_background : NodePath) -> Texture:
+	# Load textures from the file system
+	var texture1 = load(dice_background)
+	var texture2 = load("res://Assets/DiceControl/Resources/dice_number_%s.png" % data.value)
+
+	# Convert textures to Image resources
+	var image1 = texture1.get_image()
+	var image2 = texture2.get_image()
+	
+	var new_image = Image.create(image1.get_width(), image1.get_height(), false, image1.get_format())
+	
+	var rect = Rect2i(Vector2i.ZERO, image1.get_size())
+	new_image.blend_rect(image1, rect, Vector2i.ZERO) # Copy base image
+	new_image.blend_rect(image2, rect, Vector2i.ZERO) # Blend overlay image
+	
+	var final_texture = ImageTexture.create_from_image(new_image)
+	return final_texture
+
+func deselect():
+	release_focus()
+	Signals.dice_deselected.emit(self)
+
+## Useful for selecting a dice through code and not an actual mouse click.
+func simulate_pressed():
+	pressed.emit()
+
 func _on_pressed():
-	Game.select_dice(self)
-
-func _on_hover():
-	pass
-
-func _on_unhover():
-	pass
+	grab_focus()
+	Signals.dice_selected.emit(self)

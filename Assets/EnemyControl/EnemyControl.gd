@@ -7,6 +7,7 @@ const _defendIntention = preload("res://Assets/Icons/shield_thumbnail.png")
 const _specialIntention = preload("res://Assets/Icons/unknown_thumbnail.png")
 const _pierceArmorIntention = preload("res://Assets/Icons/shield_pierced_thumbnail.png")
 
+@export var data: EnemyData
 @export var _receiver: DamageReceiverComponent
 #@export var _abilities: Array[AbilityComponent] = []
 @export var _name: Button
@@ -21,15 +22,17 @@ var _ability_index = 0
 var _is_dead = false
 
 #  abilities: Array[AbilityComponent], 
-static func create(data: DamageReceiverData, attach_to: Node, portrait: Texture2D = null) -> EnemyControl:
+static func create(data: EnemyData, attach_to: Node, display_name = "Empty") -> EnemyControl:
 	if !attach_to || !is_instance_valid(attach_to) || attach_to.is_queued_for_deletion():
 		return
 	
 	var scene = load("res://Assets/EnemyControl/EnemyControl.tscn")
 	var control: EnemyControl = scene.instantiate()
-	control._receiver.data = data
-	if (control._portrait && portrait):
-		control._portrait.texture = portrait
+	control.data = data
+	control._receiver.data = data.stats
+	control._receiver.display_name = data.name
+	if (control._portrait && data.portrait):
+		control._portrait.texture = data.portrait
 	
 	attach_to.add_child(control)
 	
@@ -42,9 +45,10 @@ func _ready():
 	add_to_group("EnemyControl")
 	
 	assert(_receiver, "DamageReceiverComponent is required.")
+	assert(data)
 	
-	Game.player_start_turn.connect(_update_ui)
-	Game.player_start_turn.connect(_update_intention_ui)
+	Signals.player_start_turn.connect(_update_ui)
+	Signals.player_start_turn.connect(_update_intention_ui)
 	
 	death.connect(_on_death)
 	_name.pressed.connect(_on_enemy_select)

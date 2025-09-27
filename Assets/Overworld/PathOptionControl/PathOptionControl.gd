@@ -1,6 +1,5 @@
 class_name PathOptionControl extends Control
 
-var empty = preload("res://Assets/Overworld/PathData/EmptyPathData.tres")
 var empty_reward = preload("res://Assets/Icons/crossed_bones.png")
 
 @export var _title: Label
@@ -9,7 +8,7 @@ var empty_reward = preload("res://Assets/Icons/crossed_bones.png")
 @export var _mods: RichTextLabel
 @export var _rewards_container: Container
 
-var data: PathData = empty
+var data := PathData.create_default()
 
 static func create(data: PathData, attach_to: Node2D) -> PathOptionControl:
 	var node = load("res://Assets/Overworld/PathOptionControl/PathOptionControl.tscn").instantiate()
@@ -28,7 +27,7 @@ func _ready():
 	create_ui(data)
 
 func _on_select():
-	print("Selected me!")
+	Game.start_battle(data)
 
 func create_ui(from: PathData):
 	if _title:

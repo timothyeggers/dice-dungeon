@@ -11,12 +11,12 @@ decay = 3
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
-accuracy = 1.0
+accuracy = 0.65
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
 script = ExtResource("2_4q7ew")
-name = "Wreckless Swing"
+name = "Wreckless Swings"
 flavor = "Perhaps a  precise strike would be more effective."
 type = 0
 cost = 3

@@ -4,14 +4,6 @@ extends Node
 # Contains an array of get_instance_id() of EnemyControls instantiated in scene.
 var _enemies_ids : Array
 
-#region Enemy Stats
-const goblinStats = preload("res://Assets/DamageReceiverData/NPCs/GoblinStats.tres")
-#endregion
-
-#region Enemy Portraits
-const goblinPortrait = preload("res://Assets/EnemyControl/Resources/Goblin.png")
-#endregion
-
 ## EnemyManager.add() is automatically called on EnemyControl._ready() call.
 func add(owner_instance_id: int):
 	if _enemies_ids.has(owner_instance_id):

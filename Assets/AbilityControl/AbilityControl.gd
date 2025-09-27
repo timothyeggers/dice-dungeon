@@ -72,10 +72,12 @@ func _update_ui():
 			_description.text = ""
 
 func activate():
-	if (Game.get_turn() != Game.Turn.PLAYER):
+	if (Game.get_battle_manager().get_turn() != BattleManager.Turn.PLAYER):
 		return
 	
-	var selected = Game.get_selected_dice()
+	var selected = Game.get_battle_manager().get_selected_dice()
+	if !selected: return
+	
 	var ability = data
 	
 	if (!selected): return
@@ -88,6 +90,7 @@ func activate():
 	if (current_capacity+1 > max_capacity):
 		return
 	
-	if (selected is DiceControl):
-		selected.get_parent().remove_child(selected)
-		cost_container.add_child(selected)
+	selected.get_parent().remove_child(selected)
+	cost_container.add_child(selected)
+	
+	selected.deselect()

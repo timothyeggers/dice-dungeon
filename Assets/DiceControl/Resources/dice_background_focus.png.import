@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0glorf2jhhhh"
-path="res://.godot/imported/dice_face_focus.png-cae25d65d12b1f7e83af5ebe61db9158.ctex"
+path="res://.godot/imported/dice_background_focus.png-41c3738dd5e1e131b17327a816fc0e87.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/DiceControl/Resources/dice_face_focus.png"
-dest_files=["res://.godot/imported/dice_face_focus.png-cae25d65d12b1f7e83af5ebe61db9158.ctex"]
+source_file="res://Assets/DiceControl/Resources/dice_background_focus.png"
+dest_files=["res://.godot/imported/dice_background_focus.png-41c3738dd5e1e131b17327a816fc0e87.ctex"]
 
 [params]
 
