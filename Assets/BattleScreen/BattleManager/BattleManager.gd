@@ -39,7 +39,6 @@ var _dice_in_reserve_selected_index = 0
 # Contains EnemyControl
 @export var _enemy_container: Container
 
-
 func _ready():
 	assert(_end_turn_button)
 	assert(_reserve_button)
@@ -92,7 +91,7 @@ func get_selected_dice() -> DiceControl:
 	return _selected_dice
 
 func _on_dice_deselected(dice: DiceControl):
-	Input.set_custom_mouse_cursor(null)
+	CursorContext.set_context_icon(null)
 	
 	if get_turn() != Turn.PLAYER:
 		return
@@ -106,7 +105,7 @@ func _on_dice_selected(dice: DiceControl):
 	if dice == null:
 		return
 	
-	Input.set_custom_mouse_cursor(dice.texture_focused)
+	CursorContext.set_context_icon(dice.get_dice_cursor(), false)
 	
 	_selected_dice = dice
 
@@ -131,9 +130,6 @@ func get_target() -> DamageReceiverComponent:
 	var enemy = get_tree().get_first_node_in_group("EnemyControl")
 	var dr = Utils.get_first_child_with_tag(enemy, "DamageReceiverComponent")
 	return dr
-
-func end_game():
-	get_tree().reload_current_scene()
 
 func _on_gui_target_select(component: DamageReceiverComponent):
 	select_target(component)
@@ -165,7 +161,7 @@ func _process(delta) -> void:
 	if Input.is_action_just_pressed("scroll"):
 		var options = get_dice_in_reserve()
 		if options.size() == 0:
-			Input.set_custom_mouse_cursor(null)
+			CursorContext.set_context_icon(null)
 			return
 		if options.size() != _dice_count_in_reserve:
 			_dice_count_in_reserve = options.size()
@@ -200,6 +196,11 @@ func _start():
 		var data = enemies[e]
 		Ability.register_multiple(e, data.abilities)
 	
+	for mod in data.modifiers:
+		if mod is BuffData:
+			for e in EnemyManager.get_all_alive():
+				e.get_damage_receiver().receive_buff(mod)
+	
 	_create_player()
 	
 	match _current_turn:
@@ -208,9 +209,18 @@ func _start():
 		_:
 			call_deferred("_start_enemy_turn")
 
+func _end_battle():
+	# move to exit tree on dr, for full save games.
+	var data = load("res://Assets/DamageReceiverData/Player/PlayerStats.tres")
+	# keep in here
+	data.health = get_player().get_status().health
+	ResourceSaver.save(data, "res://SaveData/PlayerStats.tres")
+	
+	Game.start_overworld()
+
 func _start_player_turn():
 	if EnemyManager.get_all_alive().size() <= 0:
-		Game.start_overworld()
+		_end_battle()
 		return
 	
 	_turns += 1
@@ -228,13 +238,12 @@ func _start_player_turn():
 	Signals.player_start_turn.emit()
 	_update_ui()
 
-
 func _end_player_turn():
 	if _current_turn != Turn.PLAYER:
 		return
 	
 	# Reset Mouse Cursor
-	Input.set_custom_mouse_cursor(null)
+	CursorContext.set_context_icon(null)
 	
 	_current_turn = Turn.PLAYER_EXECUTING
 	
@@ -272,6 +281,7 @@ func _end_player_turn():
 		# Draw target selector, and select targets.
 		if ability.damage:
 			var selectors : Array[TargetSelector] = []
+			CursorContext.set_context_icon(CursorContext.target_cursor)
 			for t in ability.damage.max_targets:
 				var sel = TargetSelector.create(control.get_global_rect().get_center(), Game.get_world())
 				selectors.append(sel)
@@ -344,7 +354,11 @@ func _end_enemy_turn():
 
 func _create_player():
 	var playerStats = load("res://Assets/DamageReceiverData/Player/PlayerStats.tres")
-	var playerAbilities : Array[AbilityData] = [Ability.stab, Ability.wrecklessSwing, Ability.raiseShield] #, Ability.wtf
+	var playerAbilities : Array[AbilityData] = [Ability.stab, Ability.wrecklessSwing, Ability.raiseShield, Ability.killAll] #, Ability.wtf
+	
+	var savedPlayerStats = load("res://SaveData/PlayerStats.tres")
+	if savedPlayerStats:
+		playerStats = savedPlayerStats
 	
 	# Create player
 	var player = PlayerControl.create(playerStats, _field_container)

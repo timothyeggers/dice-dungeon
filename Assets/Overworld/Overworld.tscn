@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd3l47swjhj2e"]
+[gd_scene load_steps=3 format=3 uid="uid://bd3l47swjhj2e"]
 
 [ext_resource type="PackedScene" uid="uid://ectmrpktly5p" path="res://Assets/Overworld/PathOptionControl/PathOptionControl.tscn" id="1_o43r2"]
+[ext_resource type="Script" uid="uid://cdi6qbakw33pn" path="res://Assets/Overworld/FPSCounter.gd" id="2_o43r2"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
@@ -30,11 +31,16 @@ offset_right = 1280.0
 offset_bottom = 640.0
 alignment = 1
 
+[node name="PathOption1" parent="UI/PathOptionContainer" instance=ExtResource("1_o43r2")]
+layout_mode = 2
+
 [node name="PathOption2" parent="UI/PathOptionContainer" instance=ExtResource("1_o43r2")]
 layout_mode = 2
 
 [node name="PathOption3" parent="UI/PathOptionContainer" instance=ExtResource("1_o43r2")]
 layout_mode = 2
 
-[node name="PathOption4" parent="UI/PathOptionContainer" instance=ExtResource("1_o43r2")]
-layout_mode = 2
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_o43r2")

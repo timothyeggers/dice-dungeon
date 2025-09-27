@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DamageReceiverData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Assets/DamageReceiverData/DamageReceiverData.gd" id="1_r3tby"]
+
+[resource]
+script = ExtResource("1_r3tby")
+health = 8.0
+regen = 0
+shield = 5
+decay = 0
+fire_resistance = 0.0
+lightning_resistance = 0.0
+metadata/_custom_type_script = "uid://ccrqrpd65nn1y"

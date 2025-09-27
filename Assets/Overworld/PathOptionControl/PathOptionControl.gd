@@ -36,8 +36,13 @@ func create_ui(from: PathData):
 		_threat_level.text = "Threat Level: %s" % from.threat_level
 	if _mods:
 		_mods.clear()
+		if from.modifiers.size() == 0:
+			_mods.text = "- None"
 		for mod in from.modifiers:
-			_mods.append_text("- %s" % str(mod))
+			if mod is BuffData:
+				_mods.append_text("- %s" % str(mod.get_message()))
+			else:
+				_mods.append_text("- %s" % str(mod))
 			_mods.newline()
 	if _rewards_container:
 		for child in _rewards_container.get_children():

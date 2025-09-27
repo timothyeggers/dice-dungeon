@@ -10,11 +10,12 @@ var _data: DamageReceiverData
 
 func _ready():
 	add_to_group("DamageReceiverComponent")
-	
-	_data = data.duplicate()
+
 
 func _enter_tree() -> void:
 	DamageReceiverManager.add(self)
+	
+	_data = data.duplicate()
 
 func _exit_tree() -> void:
 	DamageReceiverManager.remove(self)

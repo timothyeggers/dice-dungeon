@@ -9,6 +9,7 @@ If you have a static ability, but the dice is randomized, how do you give player
 A game like rummy gives back player intention by only allowing certain dice throws to be scored once.  and you can take a zero, with the risk and intention of getting a better throw for that scored slot.
 
 ----- TODO -----
+- Make sweep (no targets, just hits everything) for DamageData
 ? hitting end without cost doesnt end turn
 - dont target unless cost reached
 - basically add cursor box

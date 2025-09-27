@@ -7,6 +7,7 @@ var _abilities : Dictionary = {}
 var _ability_last_use : Dictionary = {}
 
 #region Offensive Abilities
+const killAll = preload("res://Assets/AbilityData/Attacks/KillAll.tres")
 const murkyStab = preload("res://Assets/AbilityData/Attacks/MurkyStab.tres")
 const stab = preload("res://Assets/AbilityData/Attacks/Stab.tres")
 const wrecklessSwing = preload("res://Assets/AbilityData/Attacks/WrecklessSwing.tres")

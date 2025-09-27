@@ -24,7 +24,7 @@ func change_scene_to_node(node):
 
 func start_battle(data: PathData):
 	# Reset Mouse Cursor
-	Input.set_custom_mouse_cursor(null)
+	CursorContext.set_context_icon(null)
 	
 	var new_scene = battle_scene.instantiate()
 	var bm = new_scene.get_child(0)
@@ -35,10 +35,22 @@ func start_battle(data: PathData):
 
 func start_overworld():
 	# Reset Mouse Cursor
-	Input.set_custom_mouse_cursor(null)
+	CursorContext.set_context_icon(null)
 	
 	rooms_completed += 1
+	
+	# Add additional modifiers
+	var pathData = PathData.create_default()
+	if rooms_completed > 0:
+		pathData.modifiers.append(BuffData.init(5,0,0))
+	
 	var new_scene = overworld_scene.instantiate()
+	var path_container = new_scene.get_node("UI/PathOptionContainer")
+	for c in path_container.get_children():
+		if c is PathOptionControl:
+			c.data = pathData
+	
 	change_scene_to_node(new_scene)
+	
 	print("Rooms Completed: %s" % rooms_completed)
 	

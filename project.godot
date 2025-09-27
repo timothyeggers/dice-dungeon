@@ -25,6 +25,7 @@ Ability="*res://Assets/Globals/Ability.gd"
 EnemyManager="*res://Assets/Globals/EnemyManager.gd"
 DamageReceiverManager="*res://Assets/Globals/DamageReceiverManager.gd"
 Signals="*res://Assets/Globals/Signals.gd"
+CursorContext="*res://Assets/Globals/CursorContext.gd"
 
 [display]
 

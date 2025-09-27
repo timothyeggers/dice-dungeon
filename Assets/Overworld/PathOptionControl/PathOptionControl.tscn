@@ -38,7 +38,6 @@ theme_override_colors/font_outline_color = Color(0.588235, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "Threat Level (easy, normal, challenge)"
-horizontal_alignment = 1
 uppercase = true
 
 [node name="Modifiers" type="Label" parent="Descriptors"]
@@ -47,7 +46,6 @@ theme_override_colors/font_outline_color = Color(0.890092, 0.420184, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "Room Modifiers"
-horizontal_alignment = 1
 uppercase = true
 
 [node name="ModifiersContainer" type="ScrollContainer" parent="Descriptors"]
@@ -60,13 +58,7 @@ vertical_scroll_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "se
-tes
-tes
-tes
-set
-set
-set
+text = "- None
 "
 fit_content = true
 
