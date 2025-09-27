@@ -30,7 +30,6 @@ func get_type_display_name() -> String:
 @export var type := Type.STRENGTH
 @export var cost := 0
 @export var capacity := 1
-@export var max_targets := 1
 @export var damage : DamageData
 @export var buff : BuffData
 ## If there's an overflow, activate it if there's extra capacity at 50% cost.

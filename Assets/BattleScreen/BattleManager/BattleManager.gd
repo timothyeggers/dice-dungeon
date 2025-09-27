@@ -150,6 +150,7 @@ func get_dice_in_reserve():
 	return dcs
 
 func _process(delta) -> void:
+	return
 	if Input.is_action_just_pressed("scroll"):
 		var options = get_dice_in_reserve()
 		if options.size() == 0:
@@ -259,7 +260,7 @@ func _end_player_turn():
 		# Draw target selector, and select targets.
 		if ability.damage:
 			var selectors : Array[TargetSelector] = []
-			for t in ability.max_targets:
+			for t in ability.damage.max_targets:
 				var sel = TargetSelector.create(control.get_global_rect().get_center(), Game.get_world())
 				selectors.append(sel)
 				await Signals.receiver_selected

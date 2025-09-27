@@ -12,10 +12,10 @@ A game like rummy gives back player intention by only allowing certain dice thro
 ? hitting end without cost doesnt end turn
 - dont target unless cost reached
 - basically add cursor box
---- show hit/miss labels
+-- show hit/miss labels
 - add persistent playerdata across rooms
 - add basic room modifiers (i.e. +4 shield to enemy, +3health recovered, etc.)
-- 
+- ability highlights (e.g. decay should have tooltip)
 
 ----- Giving back intention -----
 - Reserving dice (in hand) will grant different abilities based on dice type (str,dex,int)
