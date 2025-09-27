@@ -1,22 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmyhd6f8gq3q2"]
+[gd_scene load_steps=5 format=3 uid="uid://dmyhd6f8gq3q2"]
 
 [ext_resource type="Script" uid="uid://bgik2xunbllf" path="res://Assets/AbilityControl/AbilityControl.gd" id="1_qx5lh"]
+[ext_resource type="PackedScene" uid="uid://claw0hqvpg1ed" path="res://Assets/AbilityControl/DicePlaceHolder.tscn" id="2_i6cqu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i18e7"]
 font_size = 12
 
-[node name="AbilityControl" type="PanelContainer" node_paths=PackedStringArray("_name", "_capacity", "_flavor", "_cost", "_description", "_activate", "cost_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6cqu"]
+draw_center = false
+
+[node name="AbilityControl" type="PanelContainer" node_paths=PackedStringArray("_name", "_flavor", "_cost", "_description", "_move_to_button", "_cost_container")]
 custom_minimum_size = Vector2(128, 0)
 offset_right = 336.0
 offset_bottom = 131.0
 script = ExtResource("1_qx5lh")
 _name = NodePath("Container/Title/Name")
-_capacity = NodePath("Container/Title/Capacity")
 _flavor = NodePath("Container/Flavor")
 _cost = NodePath("Container/Ability/Cost")
 _description = NodePath("Container/Ability/Description")
-_activate = NodePath("Container/ActivateButton")
-cost_container = NodePath("Container/CostContainer")
+_move_to_button = NodePath("Container/CapacityPanel/MoveDiceHereButton")
+_cost_container = NodePath("Container/CapacityPanel/VBoxContainer/CostContainer")
 
 [node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -30,13 +33,8 @@ theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 3
 text = "Ability Name"
 
-[node name="Capacity" type="Label" parent="Container/Title"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Cost > 0"
-horizontal_alignment = 2
-
 [node name="Flavor" type="Label" parent="Container"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_i18e7")
@@ -52,7 +50,7 @@ size_flags_vertical = 4
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 19
-text = "Cost > 0"
+text = "Dice Total > 0"
 
 [node name="Description" type="Label" parent="Container/Ability"]
 custom_minimum_size = Vector2(280, 0)
@@ -60,13 +58,28 @@ layout_mode = 2
 text = "Ability Description..."
 autowrap_mode = 2
 
-[node name="ActivateButton" type="Button" parent="Container"]
+[node name="CapacityPanel" type="PanelContainer" parent="Container"]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Activate"
+size_flags_vertical = 8
 
-[node name="CostContainer" type="HBoxContainer" parent="Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/CapacityPanel"]
+layout_mode = 2
+
+[node name="Capacity" type="Label" parent="Container/CapacityPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Capacity"
+
+[node name="CostContainer" type="HBoxContainer" parent="Container/CapacityPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="DicePlaceholder" parent="Container/CapacityPanel/VBoxContainer/CostContainer" instance=ExtResource("2_i6cqu")]
+layout_mode = 2
+
+[node name="MoveDiceHereButton" type="Button" parent="Container/CapacityPanel"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_i6cqu")
+flat = true

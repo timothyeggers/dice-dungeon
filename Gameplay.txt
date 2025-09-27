@@ -8,6 +8,15 @@ If you have a static ability, but the dice is randomized, how do you give player
 
 A game like rummy gives back player intention by only allowing certain dice throws to be scored once.  and you can take a zero, with the risk and intention of getting a better throw for that scored slot.
 
+----- TODO -----
+? hitting end without cost doesnt end turn
+- dont target unless cost reached
+- basically add cursor box
+--- show hit/miss labels
+- add persistent playerdata across rooms
+- add basic room modifiers (i.e. +4 shield to enemy, +3health recovered, etc.)
+- 
+
 ----- Giving back intention -----
 - Reserving dice (in hand) will grant different abilities based on dice type (str,dex,int)
 - Autoselect dice somehow? maybe scroll bar?

@@ -62,15 +62,11 @@ func reserve_selected_dice():
 	
 	if (!selected): return
 	
-	var current_capacity = _reserve_container.get_children().size()
-	var max_capacity = 2
-	
-	if (current_capacity+1 > max_capacity):
-		return
-	
 	if (selected is DiceControl):
 		selected.get_parent().remove_child(selected)
 		_reserve_container.add_child(selected)
+		selected.deselect()
+		Signals.dice_moved_to_ability.emit(selected)
 
 func select_target(component: DamageReceiverComponent):
 	_selected_target = component

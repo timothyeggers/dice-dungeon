@@ -20,12 +20,12 @@ func change_scene_to_node(node):
 	tree.get_root().add_child(node)
 	tree.get_root().remove_child(cur_scene)
 	tree.set_current_scene(node)
+	cur_scene.queue_free()
 
 func start_battle(data: PathData):
 	# Reset Mouse Cursor
 	Input.set_custom_mouse_cursor(null)
 	
-	print("Rooms Completed: %s" % rooms_completed)
 	var new_scene = battle_scene.instantiate()
 	var bm = new_scene.get_child(0)
 	bm.data = data

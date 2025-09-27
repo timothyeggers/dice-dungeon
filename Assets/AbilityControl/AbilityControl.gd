@@ -1,14 +1,15 @@
 ## This component provides the UI for the AbilityData 
 class_name AbilityControl extends Control
 
+const capacity_placeholder = preload("res://Assets/AbilityControl/DicePlaceHolder.tscn")
+
 @export var data: AbilityData
 @export var _name: Label
-@export var _capacity: Label
 @export var _flavor: Label
 @export var _cost: Label
 @export var _description: Label
-@export var _activate: Button
-@export var cost_container: Container
+@export var _move_to_button: Button
+@export var _cost_container: Container
 
 static func create(ability: AbilityData, attach_to: Node) -> AbilityControl:
 	if !attach_to || !is_instance_valid(attach_to) || attach_to.is_queued_for_deletion():
@@ -28,7 +29,7 @@ func get_ability() -> AbilityData:
 
 func get_associated_dice() -> Array[DiceControl]:
 	var diceControls : Array[DiceControl] = []
-	for d in Utils.get_children_with_tag(self, "DiceControl"):
+	for d in Utils.get_children_with_tag(_cost_container, "DiceControl"):
 		if d is DiceControl:
 			diceControls.append(d)
 	return diceControls
@@ -36,42 +37,62 @@ func get_associated_dice() -> Array[DiceControl]:
 func _ready():
 	add_to_group("AbilityControl")
 	
-	_activate.pressed.connect(activate)
+	assert(data)
+	assert(_name)
+	assert(_cost)
+	assert(_description)
+	assert(_move_to_button)
+	assert(_cost_container)
+	
+	# Signals
+	_move_to_button.pressed.connect(_on_move_to_pressed)
+	Signals.dice_moved_to_ability.connect(_on_dice_moved)
+	Signals.dice_selected.connect(_on_dice_selected)
+	Signals.dice_deselected.connect(_on_dice_deselected)
 	
 	_update_ui()
 
+func _on_dice_moved(dc: DiceControl):
+	_update_ui()
+
 func _update_ui():
-	
 	if (data == null): return
 	
-	if (_name):
-		_name.text = data.name
-	
-	if (_cost):
-		_cost.text = "Cost ≥ %s" % data.cost
+	_name.text = data.name
+	_cost.text = "Dice Total ≥ %s" % data.cost
+	#region Update cost container
+	var placeholder_dice_in_ability = _cost_container.get_children().filter(func(d): return d is not DiceControl)
+	var dice_in_ability = get_associated_dice()
+	for placeholder in placeholder_dice_in_ability:
+		remove_child(placeholder)
+		placeholder.queue_free()
+	for i in data.capacity - dice_in_ability.size():
+		_cost_container.add_child(capacity_placeholder.instantiate())
+	#endregion
+	#region Update description
+	_description.text = ""
+	if (data.damage):
+		_description.text += "%s" % data.damage.get_message()
+	if (data.buff):
+		_description.text += "%s" % data.buff.get_message()
+	if (data.overflow):
+		_description.text += "Overflow: %s" % data.overflow.name
+	#endregion
 	
 	if (_flavor):
 		if (data.flavor):
 			_flavor.text = "%s" % data.flavor
 		else:
 			_flavor.hide()
-	
-	if (_capacity):
-		_capacity.text = "Capacity: %s" % data.capacity
-	
-	if (_description):
-		if (data):
-			_description.text = ""
-			if (data.damage):
-				_description.text += "%s" % data.damage.get_message()
-			if (data.buff):
-				_description.text += "%s" % data.buff.get_message()
-			if (data.overflow):
-				_description.text += "Overflow: %s" % data.overflow.name
-		else:
-			_description.text = ""
 
-func activate():
+func _on_dice_selected(diceControl: DiceControl):
+	_move_to_button.show()
+
+func _on_dice_deselected(diceControl: DiceControl):
+	_move_to_button.hide()
+
+## When the move
+func _on_move_to_pressed():
 	if (Game.get_battle_manager().get_turn() != BattleManager.Turn.PLAYER):
 		return
 	
@@ -79,18 +100,15 @@ func activate():
 	if !selected: return
 	
 	var ability = data
-	
-	if (!selected): return
-	if (!ability): return
-	
-	var dice_in_ability = cost_container.get_children()
-	var current_capacity = dice_in_ability.size() #Utils.get_children_of_type(self, "DiceControl")
+	var dice_in_ability =  _cost_container.get_children().filter(func(d): return d is DiceControl)
+	var current_capacity = dice_in_ability.size()
 	var max_capacity = ability.capacity
 	
 	if (current_capacity+1 > max_capacity):
 		return
 	
 	selected.get_parent().remove_child(selected)
-	cost_container.add_child(selected)
+	_cost_container.add_child(selected)
 	
 	selected.deselect()
+	Signals.dice_moved_to_ability.emit(selected)

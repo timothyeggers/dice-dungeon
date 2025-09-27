@@ -3,6 +3,7 @@ extends Node
 #region Global
 signal dice_selected(diceControl)
 signal dice_deselected(diceControl)
+signal dice_moved_to_ability(diceControl)
 #endregion
 
 #region Overworld
