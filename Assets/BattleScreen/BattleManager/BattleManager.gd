@@ -20,6 +20,7 @@ var _selected_dice: DiceControl
 var _turns := 0
 var _hand_capacity := 3
 var _player: Node
+var _reserve_to_shield_ratio := 0.5
 
 # These two parameters are used for selecting Dice with scroll wheel.
 var _dice_count_in_reserve = _hand_capacity
@@ -54,8 +55,18 @@ func _ready():
 	Signals.receiver_selected.connect(_on_gui_target_select)
 	Signals.dice_selected.connect(_on_dice_selected)
 	Signals.dice_deselected.connect(_on_dice_deselected)
+	Signals.dice_moved_to_ability.connect(_on_dice_moved_to_ability)
 	
 	_start()
+
+func _on_dice_moved_to_ability(dc):
+	_update_ui()
+
+func _update_ui():
+	var total = 0
+	for d in get_dice_in_reserve():
+		total += d.data.value
+	_reserve_button.text = "(+%s Shield)" % int(total * _reserve_to_shield_ratio)
 
 func reserve_selected_dice():
 	var selected = get_selected_dice()
@@ -215,6 +226,7 @@ func _start_player_turn():
 	get_tree().get_first_node_in_group("DiceControl").pressed.emit()
 	
 	Signals.player_start_turn.emit()
+	_update_ui()
 
 
 func _end_player_turn():
@@ -275,9 +287,12 @@ func _end_player_turn():
 		Ability.invoke(_player.get_instance_id(), diceData, get_player(), targets, i)
 	
 	# Get dice in Reserve, convert to shield.
+	var total_value = 0
 	for dc in _reserve_container.get_children():
 		if dc is not DiceControl: continue
-		get_player().receive_buff(BuffData.init(dc.data.value, 0, 0))
+		total_value += dc.data.value
+	if total_value > 0:
+		get_player().receive_buff(BuffData.init(total_value * _reserve_to_shield_ratio, 0, 0))
 	
 	# Remove all DiceControl
 	for dc in get_tree().get_nodes_in_group("DiceControl"):
