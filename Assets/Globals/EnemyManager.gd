@@ -23,6 +23,15 @@ func add(owner_instance_id: int):
 func remove(owner_instance_id: int):
 	_enemies_ids.erase(owner_instance_id)
 
+func get_all() -> Array[EnemyControl]:
+	var valid : Array[EnemyControl] = []
+	for enemy in _enemies_ids:
+		var e = instance_from_id(enemy)
+		if is_instance_valid(e) && e is EnemyControl:
+			valid.append(e)
+	
+	return valid
+
 ## Returns all tracked EnemyControls that are still valid in scene and not queued for deletion.
 func get_all_alive() -> Array[EnemyControl]:
 	var valid : Array[EnemyControl] = []

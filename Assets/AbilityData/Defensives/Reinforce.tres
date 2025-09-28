@@ -17,5 +17,4 @@ flavor = ""
 type = 0
 cost = 3
 capacity = 1
-max_targets = 1
 buff = SubResource("Resource_xoq3u")

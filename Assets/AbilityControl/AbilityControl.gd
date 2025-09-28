@@ -49,7 +49,11 @@ func _ready():
 	Signals.dice_moved_to_ability.connect(_on_dice_moved)
 	Signals.dice_selected.connect(_on_dice_selected)
 	Signals.dice_deselected.connect(_on_dice_deselected)
+	Signals.dice_freed.connect(_on_dice_freed)
 	
+	_update_ui()
+
+func _on_dice_freed(dc: DiceControl):
 	_update_ui()
 
 func _on_dice_moved(dc: DiceControl):
@@ -64,7 +68,7 @@ func _update_ui():
 	var placeholder_dice_in_ability = _cost_container.get_children().filter(func(d): return d is not DiceControl)
 	var dice_in_ability = get_associated_dice()
 	for placeholder in placeholder_dice_in_ability:
-		remove_child(placeholder)
+		self.remove_child(placeholder)
 		placeholder.queue_free()
 	for i in data.capacity - dice_in_ability.size():
 		_cost_container.add_child(capacity_placeholder.instantiate())

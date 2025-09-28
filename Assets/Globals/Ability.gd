@@ -64,7 +64,7 @@ func get_invoked_ability_index(for_id: int):
 			return _ability_last_use[for_id]
 	return index
 
-func invoke(owner_instance_id: int, dice: Array[DiceData], sender: DamageReceiverComponent, targets: Array[DamageReceiverComponent], index = 0, is_overflow := false):
+func invoke(owner_instance_id: int, dice: Array[DiceData], sender: DamageReceiverComponent, target: DamageReceiverComponent, index = 0, is_overflow := false):
 	if !_abilities.has(owner_instance_id):
 		return
 		
@@ -95,13 +95,12 @@ func invoke(owner_instance_id: int, dice: Array[DiceData], sender: DamageReceive
 	print_debug("INFO %s is invoking %s ability..." % [sender.display_name, ability.name])
 	
 	if (ability.damage):
-		for target in targets:
-			target.receive(ability.damage)
+		target.receive(ability.damage)
 	
 	if (ability.buff):
 		sender.receive_buff(ability.buff)
 	
 	_ability_last_use[owner_instance_id] = index
 	
-	if (extra_dice.size() > 0 && ability.overflow != null):
-		invoke(owner_instance_id, extra_dice, sender, targets, index, true)
+	#if (extra_dice.size() > 0 && ability.overflow != null):
+	#	invoke(owner_instance_id, extra_dice, sender, target, index, true)

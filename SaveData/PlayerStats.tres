@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_r3tby")
-health = 8.0
+health = 0
 regen = 0
 shield = 5
 decay = 0

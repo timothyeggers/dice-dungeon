@@ -9,6 +9,8 @@ If you have a static ability, but the dice is randomized, how do you give player
 A game like rummy gives back player intention by only allowing certain dice throws to be scored once.  and you can take a zero, with the risk and intention of getting a better throw for that scored slot.
 
 ----- TODO -----
+- Target is using a signal, awaiting target_select, but sometimes its null.  we need to fix that ,otherwise nothing happpens.
+- Need better way of delaying next frame instead of get_tree().create_timer
 - Make sweep (no targets, just hits everything) for DamageData
 ? hitting end without cost doesnt end turn
 - dont target unless cost reached

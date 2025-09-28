@@ -9,6 +9,19 @@ class_name DamageData extends Resource
 @export var accuracy: float = 1.0
 @export var max_targets = 1
 
+static func init(amount: int, decay: int = 0, fire_damage: int = 0, lightning_damage: int = 0, dark_damage: int = 0) -> DamageData:
+	var dmg = DamageData.new()
+	dmg.amount = amount
+	dmg.decay = decay
+	dmg.fire_damage = fire_damage
+	dmg.lightning_damage = lightning_damage
+	dmg.dark_damage = dark_damage
+	return dmg
+
+## Returns all the (non debuffing) damage(s) added
+func get_total_raw() -> int:
+	return amount + fire_damage + lightning_damage + dark_damage
+
 func get_message() -> String:
 	var message = ""
 	

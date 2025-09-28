@@ -7,7 +7,7 @@
 script = ExtResource("1_uk4in")
 amount = 2
 ignore_armor = false
-decay = 3
+decay = 2
 fire_damage = 0
 lightning_damage = 0
 dark_damage = 0

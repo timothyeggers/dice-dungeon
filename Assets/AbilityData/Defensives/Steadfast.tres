@@ -17,5 +17,4 @@ flavor = "By the grace of my god mother, hold me strong!"
 type = 0
 cost = 3
 capacity = 1
-max_targets = 1
 buff = SubResource("Resource_m3rl3")

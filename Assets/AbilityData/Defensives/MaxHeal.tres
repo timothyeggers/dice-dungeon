@@ -20,6 +20,7 @@ fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
 accuracy = 1.0
+max_targets = 1
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
@@ -29,7 +30,6 @@ flavor = "What the fuck!"
 type = 0
 cost = 1
 capacity = 1
-max_targets = 1
 damage = SubResource("Resource_14omp")
 buff = SubResource("Resource_gqj2f")
 metadata/_custom_type_script = "uid://cphhxmp0fiym1"

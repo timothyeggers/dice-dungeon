@@ -1,16 +1,17 @@
 class_name DamageReceiverComponent extends Node
 
-signal damage_received()
-signal buff_received()
+signal damage_received(damage_data)
+signal buff_received(buff_data)
 
 @export var display_name := "Empty"
 @export var data: DamageReceiverData
 
 var _data: DamageReceiverData
+## This is set to _data when receive_damage or receive_buff is called.
+var _previous_data: DamageReceiverData
 
 func _ready():
 	add_to_group("DamageReceiverComponent")
-
 
 func _enter_tree() -> void:
 	DamageReceiverManager.add(self)
@@ -35,36 +36,42 @@ func tick():
 	buff_received.emit()
 
 func receive(dmg: DamageData):
-	var total_damage = 0
-	
-	var current_shield = _data.shield
-	
-	if (!dmg.ignore_armor):
-		_data.shield -= dmg.amount
-		if _data.shield < 0:
-			total_damage += abs(_data.shield)
-			_data.shield = 0
-	else:
-		total_damage += dmg.amount
-	
-	total_damage += (1-_data.fire_resistance) * dmg.fire_damage 
-	total_damage += (1-_data.lightning_resistance) * dmg.lightning_damage 
-	total_damage += dmg.dark_damage 
+	_previous_data = _data.duplicate()
+	var inflicted = DamageData.init(0)
 	
 	var hit_chance = PseudoRandom.get_random()
 	print_debug("DEBUG Final hit_chance: %s" % hit_chance)
-	if (1-dmg.accuracy) > hit_chance:
-		total_damage = 0
+	if (1-dmg.accuracy) <= hit_chance:
+		if (!dmg.ignore_armor):
+			_data.shield -= dmg.amount
+			if _data.shield < 0:
+				inflicted.amount += abs(_data.shield)
+				_data.shield = 0
+		else:
+			inflicted.amount += dmg.amount
+		
+		inflicted.fire_damage += (1-_data.fire_resistance) * dmg.fire_damage 
+		inflicted.lightning_damage += (1-_data.lightning_resistance) * dmg.lightning_damage 
+		inflicted.dark_damage += dmg.dark_damage
+		
+		inflicted.decay += dmg.decay
+	else:
+		# missed target.
+		var control = find_parent("EnemyControl")
+		if control && control is EnemyControl:
+			print_debug("DEBUG Missed target!")
+			UI.create_floating_label(control.get_instance_id(), "Miss!", 0, control.get_global_center(), Game.get_world(), Color.RED)
 	
-	_data.health -= total_damage
-	_data.decay += dmg.decay
+	_data.health -= inflicted.get_total_raw()
+	_data.decay += inflicted.decay
 	
-	print_debug("INFO %s absorbed %s damage to shield!" % [display_name, abs(current_shield-_data.shield)])
-	print_debug("INFO %s has taken %s damage!" % [display_name, total_damage])
+	print_debug("INFO %s absorbed %s damage to shield!" % [display_name, abs(_previous_data.shield-_data.shield)])
+	print_debug("INFO %s has taken %s damage to health!" % [display_name, inflicted.get_total_raw()])
 	
-	damage_received.emit()
+	damage_received.emit(inflicted)
 
 func receive_buff(buff: BuffData):
+	_previous_data = _data.duplicate()
 	_data.health += buff.heal
 	_data.health = max(0, _data.health)
 	_data.regen += buff.regen
@@ -75,7 +82,10 @@ func receive_buff(buff: BuffData):
 	print_debug("INFO %s had %s regen applied!" % [display_name, buff.regen])
 	print_debug("INFO %s has gained %s shield." % [display_name, buff.shield])
 	
-	buff_received.emit()
+	buff_received.emit(buff)
+
+func get_previous_status() -> DamageReceiverData:
+	return _previous_data
 
 func get_status() -> DamageReceiverData:
 	return _data

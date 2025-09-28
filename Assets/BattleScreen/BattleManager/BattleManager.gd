@@ -294,7 +294,9 @@ func _end_player_turn():
 		
 		print_debug("INFO Number of targets: %s" % targets.size())
 		
-		Ability.invoke(_player.get_instance_id(), diceData, get_player(), targets, i)
+		for target in targets:
+			Ability.invoke(_player.get_instance_id(), diceData, get_player(), target, i)
+			await get_tree().create_timer(0.3).timeout
 	
 	# Get dice in Reserve, convert to shield.
 	var total_value = 0
@@ -333,10 +335,15 @@ func _end_enemy_turn():
 	
 	_current_turn = Turn.ENEMY_EXECUTING
 	
-	var enemies = EnemyManager.get_all_alive()
+	var enemies = EnemyManager.get_all()
 	var targets: Array[DamageReceiverComponent] = [get_player()]
 	
 	for enemy in enemies:
+		await get_tree().create_timer(0.5).timeout
+		
+		if !enemy.is_alive():
+			enemy.queue_free()
+		
 		var abilities = Ability.get_abilities(enemy.get_instance_id())
 		if !abilities: 
 			continue
@@ -344,11 +351,11 @@ func _end_enemy_turn():
 		var index = Ability.get_invoked_ability_index(enemy.get_instance_id()) + 1
 		
 		print ("INFO %s is alive!  They have %s abilities!  They rolled %s ability" % [enemy.get_damage_receiver().display_name, abilities.size(), index])
-		Ability.invoke(enemy.get_instance_id(), [DiceData.init(99)], enemy.get_damage_receiver(), targets, index)
+		for target in targets:
+			Ability.invoke(enemy.get_instance_id(), [DiceData.init(99)], enemy.get_damage_receiver(), target, index)
+			await get_tree().create_timer(0.3).timeout
 	
 	Signals.enemy_end_turn.emit()
-	
-	await get_tree().create_timer(1).timeout
 	
 	_start_player_turn()
 

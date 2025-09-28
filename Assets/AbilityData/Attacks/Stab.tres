@@ -12,6 +12,7 @@ fire_damage = 0
 lightning_damage = 0
 dark_damage = 0
 accuracy = 0.6
+max_targets = 1
 metadata/_custom_type_script = "uid://bl15v34823isv"
 
 [resource]
@@ -21,5 +22,4 @@ flavor = ""
 type = 0
 cost = 4
 capacity = 1
-max_targets = 1
 damage = SubResource("Resource_2d00e")

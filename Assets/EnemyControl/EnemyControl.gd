@@ -53,8 +53,8 @@ func _ready():
 	death.connect(_on_death)
 	_name.pressed.connect(_on_enemy_select)
 	
-	_receiver.damage_received.connect(_update_ui)
-	_receiver.buff_received.connect(_update_ui)
+	_receiver.damage_received.connect(_on_damage)
+	_receiver.buff_received.connect(_on_buff)
 	
 	_update_ui()
 
@@ -69,13 +69,13 @@ func _on_enemy_select():
 
 func _on_death():
 	_is_dead = true
-	queue_free()
 
 ## If EnemyControl is queued for deletion return false.
 func is_alive() -> bool:
-	if is_queued_for_deletion():
-		return false
-	return true
+	return !_is_dead
+
+func get_global_center() -> Vector2:
+	return get_global_rect().get_center()
 
 func _update_intention_ui():
 	var i = Ability.get_invoked_ability_index(get_instance_id()) + 1
@@ -91,12 +91,33 @@ func _update_intention_ui():
 	if ability.buff:
 		_intention_defend.texture = _defendIntention
 
+func _on_buff(buff_data: BuffData):
+	if (buff_data.shield):
+		UI.create_floating_label(get_instance_id(), "shield", buff_data.shield, get_global_center(), Game.get_world(), Color.DARK_BLUE)
+	if (buff_data.heal):
+		UI.create_floating_label(get_instance_id(), "shield", buff_data.heal, get_global_center(), Game.get_world(), Color.RED)
+	
+	_update_ui()
+
+func _on_damage(damage_data: DamageData):
+	var previous = _receiver.get_previous_status()
+	var current = _receiver.get_status()
+	var shield_absorbed = abs(previous.shield - current.shield)
+	if shield_absorbed > 0:
+		UI.create_floating_label(get_instance_id(), "shield", -shield_absorbed, get_global_center(), Game.get_world(), Color.DARK_BLUE)
+	if damage_data.get_total_raw() > 0:
+		UI.create_floating_label(get_instance_id(), "hp", -damage_data.get_total_raw(), get_global_center(), Game.get_world(), Color.RED)
+	
+	_update_ui()
+
 func _update_ui():
 	var status = _receiver.get_status()
 	_health.text = "Health: %s" % [status.health]
 	_shield.text = "Shield: %s" % [status.shield]
 	if status.decay > 0:
 		_shield.text += " (-%s)" % status.decay
+	if status.regen > 0:
+		_health.text += " (+%s)" % status.regen
 	_name.text = _receiver.display_name
 	
 	if status.health <= 0:

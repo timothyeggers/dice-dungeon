@@ -29,6 +29,9 @@ func _ready():
 	# Signals
 	pressed.connect(_on_pressed)
 
+func _exit_tree() -> void:
+	Signals.dice_freed.emit(self)
+
 ## Returns the DiceData value, not reference.
 func get_dice() -> DiceData:
 	return data.duplicate()
